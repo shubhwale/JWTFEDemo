@@ -7,15 +7,19 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class UserService {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
-  private readonly BaseUri = 'https://localhost:44377/api';
+  private readonly BaseUri = 'https://localhost:44335/api';
   formModel = this.fb.group({
-    UserName : ['',Validators.required],
-    Email : ['',Validators.email],
-    FullName : [''],
+    Name : ['',Validators.required],
+    Email : ['',[Validators.email,Validators.required]],
     Passwords : this.fb.group({
       Password : ['',[Validators.required,Validators.minLength(3)]],
       ConfirmPassword : ['',Validators.required]
-    },{validator : this.comparePasswords})
+    },{validator : this.comparePasswords}),
+    Contact : ['',[Validators.required,Validators.pattern("[0-9]{10}")]],
+    Gender : ['',Validators.required],
+    AddressLine : ['',Validators.required],
+    City : ['',Validators.required],
+    State : ['',Validators.required]
   });
 
   comparePasswords(fb:FormGroup) {
@@ -34,22 +38,26 @@ export class UserService {
 
   register() {
     var body = {
-      UserName : this.formModel.value.UserName,
+      Name : this.formModel.value.Name,
       Email : this.formModel.value.Email,
-      FullName : this.formModel.value.FullName,
       Password : this.formModel.value.Passwords.Password,
+      Contact : this.formModel.value.Contact,
+      Gender : this.formModel.value.Gender,
+      AddressLine : this.formModel.value.AddressLine,
+      City : this.formModel.value.City,
+      State : this.formModel.value.State,
       //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
     };
-    return this.http.post(this.BaseUri+'/applicationuser/register',body);
+    return this.http.post(this.BaseUri+'/users/register',body);
   }
 
   login(formData) {
-     return this.http.post(this.BaseUri+'/applicationuser/login',formData);
+     return this.http.post(this.BaseUri+'/users/login',formData);
   }
 
   getUserProfile() {
-    //var tokenHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('token')});
+    //var tokenHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('accessToken')});
     //return this.http.get(this.BaseUri+'/userprofile',{headers : tokenHeader});
-    return this.http.get(this.BaseUri+'/userprofile');
+    return this.http.get(this.BaseUri+'/users/getuserprofile');
   }
 }
