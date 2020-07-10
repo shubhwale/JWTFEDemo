@@ -1,51 +1,24 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
+import { UserComponent } from 'src/app/user/user.component'
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private http: HttpClient, private user : UserComponent) { }
   private readonly BaseUri = 'https://localhost:44335/api';
-  formModel = this.fb.group({
-    Name : ['',Validators.required],
-    Email : ['',[Validators.email,Validators.required]],
-    Passwords : this.fb.group({
-      Password : ['',[Validators.required,Validators.minLength(3)]],
-      ConfirmPassword : ['',Validators.required]
-    },{validator : this.comparePasswords}),
-    Contact : ['',[Validators.required,Validators.pattern("[0-9]{10}")]],
-    Gender : ['',Validators.required],
-    AddressLine : ['',Validators.required],
-    City : ['',Validators.required],
-    State : ['',Validators.required]
-  });
-
-  comparePasswords(fb:FormGroup) {
-    let confirmPswrdCtrl = fb.get('ConfirmPassword');
-    //passwordMismatch
-    //confirmPswrdCtrl.errors={passwordMismatch=true}
-    if(confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
-      if(fb.get('Password').value!=confirmPswrdCtrl.value) {
-        confirmPswrdCtrl.setErrors({ passwordMismatch:true});
-      }
-      else {
-        confirmPswrdCtrl.setErrors(null);
-      }
-    }
-  }
 
   register() {
     var body = {
-      Name : this.formModel.value.Name,
-      Email : this.formModel.value.Email,
-      Password : this.formModel.value.Passwords.Password,
-      Contact : this.formModel.value.Contact,
-      Gender : this.formModel.value.Gender,
-      AddressLine : this.formModel.value.AddressLine,
-      City : this.formModel.value.City,
-      State : this.formModel.value.State,
+      Name : this.user.formModel.value.Name,
+      Email : this.user.formModel.value.Email,
+      Password : this.user.formModel.value.Passwords.Password,
+      Contact : this.user.formModel.value.Contact,
+      Gender : this.user.formModel.value.Gender,
+      AddressLine : this.user.formModel.value.AddressLine,
+      City : this.user.formModel.value.City,
+      State : this.user.formModel.value.State,
       //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
     };
     return this.http.post(this.BaseUri+'/users/register',body);

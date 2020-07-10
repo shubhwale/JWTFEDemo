@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/user.service';
-import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
+import { UserComponent } from '../user.component';
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +10,7 @@ import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(public service : UserService,private toastr : ToastrService) { }
+  constructor(public service : UserService,private toastr : ToastrService, public user : UserComponent) { }
 
   ngOnInit(): void {
   }
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
     this.service.register().subscribe(
       (res:any) => {
         if(res.hasOwnProperty('userId')) {
-          this.service.formModel.reset();
+          this.user.formModel.reset();
           this.toastr.success('New User created','Registration succesful');
         }
         else {
