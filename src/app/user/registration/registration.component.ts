@@ -16,7 +16,18 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.register().subscribe(
+    var body = {
+      Name : this.user.formModel.value.Name,
+      Email : this.user.formModel.value.Email,
+      Password : this.user.formModel.value.Passwords.Password,
+      Contact : this.user.formModel.value.Contact,
+      Gender : this.user.formModel.value.Gender,
+      AddressLine : this.user.formModel.value.AddressLine,
+      City : this.user.formModel.value.City,
+      State : this.user.formModel.value.State,
+      //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
+    };
+    this.service.register(body).subscribe(
       (res:any) => {
         if(res.hasOwnProperty('userId')) {
           this.user.formModel.reset();

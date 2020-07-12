@@ -9,18 +9,7 @@ export class UserService {
   constructor(private http: HttpClient, private user : UserComponent) { }
   private readonly BaseUri = 'https://localhost:44335/api';
 
-  register() {
-    var body = {
-      Name : this.user.formModel.value.Name,
-      Email : this.user.formModel.value.Email,
-      Password : this.user.formModel.value.Passwords.Password,
-      Contact : this.user.formModel.value.Contact,
-      Gender : this.user.formModel.value.Gender,
-      AddressLine : this.user.formModel.value.AddressLine,
-      City : this.user.formModel.value.City,
-      State : this.user.formModel.value.State,
-      //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
-    };
+  register(body) {
     return this.http.post(this.BaseUri+'/users/register',body);
   }
 
