@@ -12,13 +12,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   formModel = {
-    UserName : '',
+    Email : '',
     Password : ''
   }
   constructor(private service : UserService, private router : Router, private toastr : ToastrService) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')!=null) {
+    if(localStorage.getItem('accessToken')!=null && localStorage.getItem('refreshToken')!=null) {
       this.router.navigateByUrl('/home');
     }
   }
@@ -26,12 +26,13 @@ export class LoginComponent implements OnInit {
   onSubmit(form : NgForm) {
     this.service.login(form.value).subscribe(
       (res : any) => {
-        localStorage.setItem('token',res.token);
+        localStorage.setItem('accessToken',res.accessToken);
+        localStorage.setItem('refreshToken',res.refreshToken);
         this.router.navigateByUrl('/home');
       },
       err => {
         if(err.status == 400) {
-          this.toastr.error('Incorrect username or password');
+          this.toastr.error('Incorrect username or password','Authentication failed');
         }
         else {
           console.log(err);

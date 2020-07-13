@@ -1,55 +1,25 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
+import { UserComponent } from 'src/app/user/user.component'
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
-  private readonly BaseUri = 'https://localhost:44377/api';
-  formModel = this.fb.group({
-    UserName : ['',Validators.required],
-    Email : ['',Validators.email],
-    FullName : [''],
-    Passwords : this.fb.group({
-      Password : ['',[Validators.required,Validators.minLength(3)]],
-      ConfirmPassword : ['',Validators.required]
-    },{validator : this.comparePasswords})
-  });
+  constructor(private http: HttpClient, private user : UserComponent) { }
+  private readonly BaseUri = 'https://localhost:44335/api';
 
-  comparePasswords(fb:FormGroup) {
-    let confirmPswrdCtrl = fb.get('ConfirmPassword');
-    //passwordMismatch
-    //confirmPswrdCtrl.errors={passwordMismatch=true}
-    if(confirmPswrdCtrl.errors == null || 'passwordMismatch' in confirmPswrdCtrl.errors) {
-      if(fb.get('Password').value!=confirmPswrdCtrl.value) {
-        confirmPswrdCtrl.setErrors({ passwordMismatch:true});
-      }
-      else {
-        confirmPswrdCtrl.setErrors(null);
-      }
-    }
-  }
-
-  register() {
-    var body = {
-      UserName : this.formModel.value.UserName,
-      Email : this.formModel.value.Email,
-      FullName : this.formModel.value.FullName,
-      Password : this.formModel.value.Passwords.Password,
-      //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
-    };
-    return this.http.post(this.BaseUri+'/applicationuser/register',body);
+  register(body) {
+    return this.http.post(this.BaseUri+'/users/register',body);
   }
 
   login(formData) {
-     return this.http.post(this.BaseUri+'/applicationuser/login',formData);
+     return this.http.post(this.BaseUri+'/users/login',formData);
   }
 
   getUserProfile() {
-    //var tokenHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('token')});
+    //var tokenHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('accessToken')});
     //return this.http.get(this.BaseUri+'/userprofile',{headers : tokenHeader});
-    return this.http.get(this.BaseUri+'/userprofile');
+    return this.http.get(this.BaseUri+'/users/getuserprofile');
   }
 }

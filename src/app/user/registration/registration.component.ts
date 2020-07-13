@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/user.service';
-import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
+import { UserComponent } from '../user.component';
 
 @Component({
   selector: 'app-registration',
@@ -9,31 +10,31 @@ import { ToastrComponentlessModule, ToastrService } from 'ngx-toastr';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(public service : UserService,private toastr : ToastrService) { }
+  constructor(public service : UserService,private toastr : ToastrService, public user : UserComponent) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this.service.register().subscribe(
+    var body = {
+      Name : this.user.formModel.value.Name,
+      Email : this.user.formModel.value.Email,
+      Password : this.user.formModel.value.Passwords.Password,
+      Contact : this.user.formModel.value.Contact,
+      Gender : this.user.formModel.value.Gender,
+      AddressLine : this.user.formModel.value.AddressLine,
+      CityID : this.user.formModel.value.City,
+      StateID : this.user.formModel.value.State,
+      //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
+    };
+    this.service.register(body).subscribe(
       (res:any) => {
-        if(res.succeeded) {
-          this.service.formModel.reset();
+        if(res.hasOwnProperty('userId')) {
+          this.user.formModel.reset();
           this.toastr.success('New User created','Registration succesful');
         }
         else {
-          res.errors.forEach(element => {
-            switch(element.code) {
-              case 'DuplicateUserName' : 
-                this.toastr.error('Username already taken','Registration failed');
-                //UserName is already taken
-                break;
-              default :
-              this.toastr.error(element.description,'Registration failed');
-                //Registration failed
-                break;
-            }
-          });
+          this.toastr.error('Cannot create account','Registration failed');
         }
       },
       err => {
