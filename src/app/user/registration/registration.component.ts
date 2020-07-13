@@ -23,8 +23,8 @@ export class RegistrationComponent implements OnInit {
       Contact : this.user.formModel.value.Contact,
       Gender : this.user.formModel.value.Gender,
       AddressLine : this.user.formModel.value.AddressLine,
-      City : this.user.formModel.value.City,
-      State : this.user.formModel.value.State,
+      CityID : this.user.formModel.value.City,
+      StateID : this.user.formModel.value.State,
       //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
     };
     this.service.register(body).subscribe(
