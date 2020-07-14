@@ -13,6 +13,9 @@ export class HomeComponent implements OnInit {
   constructor(private router : Router,private service : UserService) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('accessToken')==null) {
+      this.router.navigate(['/user/login']);
+    }
     this.service.getUserProfile().subscribe(
       res => {
         this.userDetails = res;
