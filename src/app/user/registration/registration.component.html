@@ -32,7 +32,10 @@
     </div>
     <div class="form-group required">
         <label>Gender</label>
-        <input class="form-control" formControlName="Gender">
+        <select formControlName="Gender" class="form-control">
+            <option value="" selected disabled>Select</option>
+            <option *ngFor="let choice of gender" [value]="choice">{{choice}}</option>
+        </select>
         <label class="text-danger" *ngIf="user.formModel.get('Gender').touched && user.formModel.get('Gender').errors?.required">This field is required</label>
     </div>
     <div class="form-group required">
@@ -42,12 +45,18 @@
     </div>
     <div class="form-group required">
         <label>City</label>
-        <input class="form-control" formControlName="City">
+        <select formControlName="City" class="form-control">
+            <option value="" selected disabled>Select</option>
+            <option *ngFor="let city of myCities" [value]="city.cityId">{{city.cityName}}</option>
+        </select>
         <label class="text-danger" *ngIf="user.formModel.get('City').touched && user.formModel.get('City').errors?.required">This field is required</label>
     </div>
     <div class="form-group required">
         <label>State</label>
-        <input class="form-control" formControlName="State">
+        <select formControlName="State" class="form-control">
+            <option value="" selected disabled>Select</option>
+            <option *ngFor="let state of myStates" [value]="state.stateId">{{state.stateName}}</option>
+        </select>
         <label class="text-danger" *ngIf="user.formModel.get('State').touched && user.formModel.get('State').errors?.required">This field is required</label>
     </div>
     <div class="form-row">
