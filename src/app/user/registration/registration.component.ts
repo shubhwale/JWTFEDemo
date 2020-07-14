@@ -21,11 +21,9 @@ export class RegistrationComponent implements OnInit {
   
   ngOnInit(): void {
     this.service.getCities().subscribe(cityList =>{
-      //console.log(cityList);
       this.myCities = cityList;
     });
     this.service.getStates().subscribe(stateList =>{
-      //console.log(stateList);
       this.myStates = stateList;
     });
   }
