@@ -13,6 +13,10 @@ import { UserService } from './shared/user.service';
 import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BooksListComponent } from './books/books-list/books-list.component';
+import { BookDetailsComponent } from './books/book-details/book-details.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     UserComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    BooksListComponent,
+    BookDetailsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       progressBar:true
     }),
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [UserService,{
     provide : HTTP_INTERCEPTORS,
