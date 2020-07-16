@@ -6,7 +6,6 @@ import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
 import { BooksListComponent } from './books/books-list/books-list.component';
-import { BookDetailsComponent } from './books/book-details/book-details.component';
 
 
 
@@ -19,7 +18,6 @@ const routes: Routes = [
   ]},
   {path : 'home',component : HomeComponent,canActivate:[AuthGuard]},
   {path : 'books',component : BooksListComponent},
-  {path : 'book/:id',component : BookDetailsComponent}
 ];
 
 @NgModule({
