@@ -19,6 +19,10 @@ import { catchError } from 'rxjs/operators';
     getCategories() {
         return this.http.get(this.BaseUri+'/books/getcategories').pipe(catchError(this.handleError));
     }
+
+    findBookById(id: any) : Promise<Object> {
+      return this.http.get(this.BaseUri+'/books/'+id).toPromise();
+    }
   
     private handleError(error: HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {
