@@ -1,0 +1,23 @@
+<div class="container">
+    <table class="table table-bordered" *ngIf = "booksList && booksList.length">
+        <thead>
+            <tr>
+                <th>Book Image</th>
+                <th>Book Title</th>
+                <th>Book Price</th>
+                <th>Book Rating</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let book of booksList">
+                <td><a routerLink = "/book/{{ book.bookId }}"><img src = "{{ book.imageUrl }}" style="width: 70px; height: 90px"/></a></td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.price | currency: "INR"}}</td>
+                <td>
+                    <ngb-rating [rate] = "book.rating"></ngb-rating>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
