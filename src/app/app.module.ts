@@ -16,6 +16,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BooksListComponent } from './books/books-list/books-list.component';
 import { HeaderComponent } from './header/header.component';
+import { BookDetailsComponent } from './books/book-details/book-details.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HeaderComponent } from './header/header.component';
     LoginComponent,
     HomeComponent,
     BooksListComponent,
+    BookDetailsComponent,
     HeaderComponent
   ],
   imports: [
