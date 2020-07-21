@@ -7,6 +7,7 @@
                     <label>BookID</label>
                     <input class="form-control" formControlName="BookID">
                     <label class="text-danger" *ngIf="this.formModel2.get('BookID').touched && this.formModel2.get('BookID').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('BookID').touched && this.formModel2.get('BookID').errors?.min">Invalid ID</label>
                 </div>
                 <div class="form-group required">
                     <label>Title</label>
@@ -30,21 +31,25 @@
                     <label>Number of Pages</label>
                     <input class="form-control" formControlName="NoOfPages">
                     <label class="text-danger" *ngIf="this.formModel2.get('NoOfPages').touched && this.formModel2.get('NoOfPages').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('NoOfPages').touched && this.formModel2.get('NoOfPages').errors?.min">Number of pages should be more</label>
                 </div>
                 <div class="form-group required">
                     <label>Edition</label>
                     <input class="form-control" formControlName="Edition">
                     <label class="text-danger" *ngIf="this.formModel2.get('Edition').touched && this.formModel2.get('Edition').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('Edition').touched && this.formModel2.get('Edition').errors?.min">Invalid edition number</label>
                 </div>
                 <div class="form-group required">
                     <label>Price</label>
                     <input class="form-control" formControlName="Price">
                     <label class="text-danger" *ngIf="this.formModel2.get('Price').touched && this.formModel2.get('Price').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('Price').touched && this.formModel2.get('Price').errors?.min">Invalid price</label>
                 </div>
                 <div class="form-group required">
                     <label>Release Date</label>
                     <input class="form-control" formControlName="ReleaseDate" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
                     <label class="text-danger" *ngIf="this.formModel2.get('ReleaseDate').touched && this.formModel2.get('ReleaseDate').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('ReleaseDate').touched && (this.formModel2.get('ReleaseDate').errors?.minlength || this.formModel2.get('ReleaseDate').errors?.maxlength)">Date format is wrong</label>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-8 offset-md-2">
