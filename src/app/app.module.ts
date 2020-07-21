@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BooksListComponent } from './books/books-list/books-list.component';
 import { HeaderComponent } from './header/header.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
+import { AddBookComponent } from './books/add-book/add-book.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
     HomeComponent,
     BooksListComponent,
     BookDetailsComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddBookComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   book: Book
+
   
   ngOnInit(): void {
     this.route.paramMap.subscribe((map: ParamMap) => {

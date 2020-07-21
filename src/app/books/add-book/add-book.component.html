@@ -1,0 +1,57 @@
+<div class="wrapper">
+    <div class="wrapped-div">
+        <div>
+            <img src="/assets/images/add_book.png" class="mx-auto d-block mt-4" style="height: 20%; width: 20%;">
+            <form [formGroup]="this.formModel2" autocomplete="off" (submit)="onSubmit()" class="mx-4">
+                <div class="form-group required">
+                    <label>BookID</label>
+                    <input class="form-control" formControlName="BookID">
+                    <label class="text-danger" *ngIf="this.formModel2.get('BookID').touched && this.formModel2.get('BookID').errors?.required">This field is required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Title</label>
+                    <input class="form-control" formControlName="Title">
+                    <label class="text-danger" *ngIf="this.formModel2.get('Title').touched && this.formModel2.get('Title').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('Title').touched && this.formModel2.get('Title').errors?.minlength">Minimum 3 characters required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Author</label>
+                    <input class="form-control" formControlName="Author">
+                    <label class="text-danger" *ngIf="this.formModel2.get('Author').touched && this.formModel2.get('Author').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('Author').touched && this.formModel2.get('Author').errors?.minlength">Minimum 3 characters required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Publisher</label>
+                    <input class="form-control" formControlName="Publisher">
+                    <label class="text-danger" *ngIf="this.formModel2.get('Publisher').touched && this.formModel2.get('Publisher').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel2.get('Publisher').touched && this.formModel2.get('Publisher').errors?.minlength">Minimum 3 characters required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Number of Pages</label>
+                    <input class="form-control" formControlName="NoOfPages">
+                    <label class="text-danger" *ngIf="this.formModel2.get('NoOfPages').touched && this.formModel2.get('NoOfPages').errors?.required">This field is required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Edition</label>
+                    <input class="form-control" formControlName="Edition">
+                    <label class="text-danger" *ngIf="this.formModel2.get('Edition').touched && this.formModel2.get('Edition').errors?.required">This field is required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Price</label>
+                    <input class="form-control" formControlName="Price">
+                    <label class="text-danger" *ngIf="this.formModel2.get('Price').touched && this.formModel2.get('Price').errors?.required">This field is required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Release Date</label>
+                    <input class="form-control" formControlName="ReleaseDate" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()">
+                    <label class="text-danger" *ngIf="this.formModel2.get('ReleaseDate').touched && this.formModel2.get('ReleaseDate').errors?.required">This field is required</label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8 offset-md-2">
+                        <button type="submit" class="btn btn-lg btn-block" [disabled]="!this.formModel2.valid">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

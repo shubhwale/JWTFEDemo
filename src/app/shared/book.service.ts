@@ -21,7 +21,11 @@ import { catchError } from 'rxjs/operators';
     }
 
     findBookById(id: any) : Promise<Object> {
-      return this.http.get(this.BaseUri+'/books/'+id).toPromise();
+      return this.http.get(this.BaseUri+'/books/'+id).pipe(catchError(this.handleError)).toPromise();
+    }
+
+    addBook(bookData: any) : Promise<Object> {
+      return this.http.post(this.BaseUri+'/books/addbook',bookData).pipe(catchError(this.handleError)).toPromise();
     }
   
     private handleError(error: HttpErrorResponse) {
