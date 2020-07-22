@@ -27,6 +27,31 @@ import { catchError } from 'rxjs/operators';
     addBook(bookData: any) : Promise<Object> {
       return this.http.post(this.BaseUri+'/books/addbook',bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
     }
+
+    editBook(bookData : any) : Promise<Object> {
+      return this.http.put(this.BaseUri+'/books/'+bookData.bookId,bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
+    }
+
+    generateImageURL(title : any) : string {
+      var str = "assets/images/"+
+                title.split(' ').join('_').toLowerCase().concat(".jpeg");
+      return str;
+    }
+  
+    generateDateString(jsonDate : object) : string {
+      var str = "";
+      str=jsonDate['year']+"-";
+      var month : string = jsonDate['month']+"";
+      if(month.length==1) {
+        month="0"+month;
+      }
+      var day : string = jsonDate['day']+"";
+      if(day.length==1) {
+        day="0"+day;
+      }
+      str+=month+"-"+day;
+      return str;
+    }
   
     private handleError(error: HttpErrorResponse) {
       if (error.error instanceof ErrorEvent) {

@@ -26,7 +26,6 @@ export class BookDetailsComponent implements OnInit {
       this.bookService.findBookById(bookId)
       .then((data: Book) => {
           this.book = data;
-          console.log(this.book);
       }, (err) => {
           console.log(err);
       })
