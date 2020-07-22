@@ -25,7 +25,7 @@ import { catchError } from 'rxjs/operators';
     }
 
     addBook(bookData: any) : Promise<Object> {
-      return this.http.post(this.BaseUri+'/books/addbook',bookData).pipe(catchError(this.handleError)).toPromise();
+      return this.http.post(this.BaseUri+'/books/addbook',bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
     }
   
     private handleError(error: HttpErrorResponse) {
