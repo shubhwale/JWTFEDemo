@@ -18,6 +18,7 @@ import { BooksListComponent } from './books/books-list/books-list.component';
 import { HeaderComponent } from './header/header.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
 import { AddBookComponent } from './books/add-book/add-book.component';
+import { EditBookComponent } from './books/edit-book/edit-book.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AddBookComponent } from './books/add-book/add-book.component';
     BooksListComponent,
     BookDetailsComponent,
     HeaderComponent,
-    AddBookComponent
+    AddBookComponent,
+    EditBookComponent
   ],
   imports: [
     BrowserModule,
