@@ -3,6 +3,7 @@ import { BookService } from 'src/app/shared/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'; // Notice it is imported from @angular/common/http instead of @angular/http
 
 @Component({
   selector: 'app-add-book',
@@ -43,13 +44,19 @@ export class AddBookComponent implements OnInit {
       imageUrl : this.generateImageURL(this.formModel2.value.Title)
     };
 
-    this.service.addBook(body).then((res:any) => {
-      if(res.hasOwnProperty('bookId')) {
-        this.formModel2.reset();
-        this.toastr.success('Success','New Book Added');          
-      }
-      else {
-        this.toastr.error('Fail','Cannot Add Book');
+    this.service.addBook(body).then((res:Response) => {
+      if(res) {
+        if(res.status===200) {
+          console.log(res.status);
+          console.log(res.statusText);
+          this.formModel2.reset();
+          this.toastr.success('Success','New Book Added');
+        }
+        else {
+          console.log(res.status);
+          console.log(res.statusText);
+          this.toastr.error('Fail','Cannot Add Book');
+        }
       }
     },
     err => {
@@ -57,13 +64,13 @@ export class AddBookComponent implements OnInit {
     });
   }
 
-  generateImageURL(title : any) {
+  generateImageURL(title : any) : string {
     var str = "assets/images/"+
               title.split(' ').join('_').toLowerCase().concat(".jpeg");
     return str;
   }
 
-  generateDateString(jsonDate : object) {
+  generateDateString(jsonDate : object) : string {
     var str = "";
     str=jsonDate['year']+"-";
     var month : string = jsonDate['month']+"";
