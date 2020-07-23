@@ -35,7 +35,7 @@ export class EditBookComponent implements OnInit {
     });
     this.formModel3 = this.fb.group({
       BookID : '',
-      Title : ['',[Validators.required,Validators.minLength(3)]],
+      Title : ['',[Validators.minLength(3),Validators.requiredTrue]],
       Author : ['',Validators.minLength(3)],
       Publisher : ['',Validators.minLength(3)],
       NoOfPages : ['',Validators.min(1)],

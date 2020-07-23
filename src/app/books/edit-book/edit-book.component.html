@@ -10,38 +10,44 @@
                 <div class="form-group required">
                     <label>Title</label>
                     <input class="form-control" formControlName="Title" [value]="this.book?.title">
-                    <label class="text-danger" *ngIf="this.formModel3.get('Title').touched && this.formModel3.get('Title').errors?.empty">This field is required</label>
-                    <label class="text-danger" *ngIf="this.formModel3.get('Title').errors?.minlength">Minimum 3 characters required</label>
+                <label class="text-danger" *ngIf="this.formModel3.get('Title').dirty && this.formModel3.get('Title').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Title').dirty && this.formModel3.get('Title').errors?.minlength">Minimum 3 characters required</label>
                 </div>
                 <div class="form-group required">
                     <label>Author</label>
                     <input class="form-control" formControlName="Author" [value]="this.book?.author">
-                    <label class="text-danger" *ngIf="this.formModel3.get('Author').errors?.minlength">Minimum 3 characters required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Author').dirty && this.formModel3.get('Author').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Title').dirty && this.formModel3.get('Author').errors?.minlength">Minimum 3 characters required</label>
                 </div>
                 <div class="form-group required">
                     <label>Publisher</label>
                     <input class="form-control" formControlName="Publisher" [value]="this.book?.publisher">
-                    <label class="text-danger" *ngIf="this.formModel3.get('Publisher').errors?.minlength">Minimum 3 characters required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Publisher').dirty && this.formModel3.get('Publisher').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Publisher').dirty && this.formModel3.get('Publisher').errors?.minlength">Minimum 3 characters required</label>
                 </div>
                 <div class="form-group required">
                     <label>Number of Pages</label>
                     <input class="form-control" formControlName="NoOfPages" [value]="this.book?.noOfPages">
-                    <label class="text-danger" *ngIf="this.formModel3.get('NoOfPages').errors?.min">Number of pages should be more</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('NoOfPages').dirty && this.formModel3.get('NoOfPages').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('NoOfPages').dirty && this.formModel3.get('NoOfPages').errors?.min">Number of pages should be more</label>
                 </div>
                 <div class="form-group required">
                     <label>Edition</label>
                     <input class="form-control" formControlName="Edition" [value]="this.book?.edition">
-                    <label class="text-danger" *ngIf="this.formModel3.get('Edition').errors?.min">Invalid edition number</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Edition').dirty && this.formModel3.get('Edition').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Edition').dirty && this.formModel3.get('Edition').errors?.min">Invalid edition number</label>
                 </div>
                 <div class="form-group required">
                     <label>Price</label>
                     <input class="form-control" formControlName="Price" [value]="this.book?.price">
-                    <label class="text-danger" *ngIf="this.formModel3.get('Price').errors?.min">Invalid price</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Price').dirty && this.formModel3.get('Price').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('Price').dirty && this.formModel3.get('Price').errors?.min">Invalid price</label>
                 </div>
                 <div class="form-group required">
                     <label>Release Date</label>
                     <input class="form-control" formControlName="ReleaseDate" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [value]="this.book?.releaseDate | date: 'yyyy-MM-dd'">
-                    <label class="text-danger" *ngIf="this.formModel3.get('ReleaseDate').errors?.minlength && this.formModel3.get('ReleaseDate').errors?.maxlength">Date format is wrong</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('ReleaseDate').dirty && this.formModel3.get('ReleaseDate').errors?.required">This field is required</label>
+                    <label class="text-danger" *ngIf="this.formModel3.get('ReleaseDate').dirty && (this.formModel3.get('ReleaseDate').errors?.minlength || this.formModel3.get('ReleaseDate').errors?.maxlength)">Date format is wrong</label>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-8 offset-md-2">
