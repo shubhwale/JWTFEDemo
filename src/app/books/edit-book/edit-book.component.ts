@@ -35,13 +35,13 @@ export class EditBookComponent implements OnInit {
     });
     this.formModel3 = this.fb.group({
       BookID : '',
-      Title : ['',[Validators.minLength(3),Validators.requiredTrue]],
-      Author : ['',Validators.minLength(3)],
-      Publisher : ['',Validators.minLength(3)],
-      NoOfPages : ['',Validators.min(1)],
-      Edition : ['',Validators.min(1)],
-      Price : ['',Validators.min(0)],
-      ReleaseDate : ['',[Validators.minLength(8),Validators.maxLength(10)]]
+      Title : ['',[Validators.minLength(3),Validators.required]],
+      Author : ['',[Validators.required,Validators.minLength(3)]],
+      Publisher : ['',[Validators.required,Validators.minLength(3)]],
+      NoOfPages : ['',[Validators.required,Validators.min(1)]],
+      Edition : ['',[Validators.required,Validators.min(1)]],
+      Price : ['',[Validators.required,Validators.min(0)]],
+      ReleaseDate : ['',[Validators.required,Validators.minLength(8),Validators.maxLength(10)]]
     });
   }
 
