@@ -15,10 +15,10 @@ export class AddBookComponent implements OnInit {
   
   constructor(public service : BookService,private toastr : ToastrService, private router : Router, private fb : FormBuilder) { }
 
-  formModel2;
+  addBookForm;
   
   ngOnInit(): void {
-    this.formModel2 = this.fb.group({
+    this.addBookForm = this.fb.group({
       BookID : ['',[Validators.required,Validators.min(1)]],
       Title : ['',[Validators.required,Validators.minLength(3)]],
       Author : ['',[Validators.required,Validators.minLength(3)]],
@@ -32,16 +32,16 @@ export class AddBookComponent implements OnInit {
 
   onSubmit() {
     var body = {
-      bookId : parseInt(this.formModel2.value.BookID),
-      title : this.formModel2.value.Title,
-      author : this.formModel2.value.Author,
-      publisher : this.formModel2.value.Publisher,
-      noOfPages : parseInt(this.formModel2.value.NoOfPages),
+      bookId : parseInt(this.addBookForm.value.BookID),
+      title : this.addBookForm.value.Title,
+      author : this.addBookForm.value.Author,
+      publisher : this.addBookForm.value.Publisher,
+      noOfPages : parseInt(this.addBookForm.value.NoOfPages),
       rating : 0,
-      edition : parseInt(this.formModel2.value.Edition),
-      price : parseInt(this.formModel2.value.Price),
-      releaseDate : this.generateDateString(this.formModel2.value.ReleaseDate),
-      imageUrl : this.generateImageURL(this.formModel2.value.Title)
+      edition : parseInt(this.addBookForm.value.Edition),
+      price : parseInt(this.addBookForm.value.Price),
+      releaseDate : this.generateDateString(this.addBookForm.value.ReleaseDate),
+      imageUrl : this.generateImageURL(this.addBookForm.value.Title)
     };
 
     this.service.addBook(body).then((res:Response) => {
@@ -49,8 +49,9 @@ export class AddBookComponent implements OnInit {
         if(res.status===200) {
           console.log(res.status);
           console.log(res.statusText);
-          this.formModel2.reset();
+          this.addBookForm.reset();
           this.toastr.success('Success','New Book Added');
+          this.router.navigateByUrl('/book/'+body?.bookId);
         }
         else {
           console.log(res.status);
@@ -64,7 +65,7 @@ export class AddBookComponent implements OnInit {
     });
   }
 
-  generateImageURL(title : any) : string {
+  generateImageURL(title : string) : string {
     var str = "assets/images/"+
               title.split(' ').join('_').toLowerCase().concat(".jpeg");
     return str;
