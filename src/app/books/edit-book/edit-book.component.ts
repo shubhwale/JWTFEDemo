@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Book } from '../book';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, Validators } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-book',
@@ -46,7 +47,7 @@ export class EditBookComponent implements OnInit {
   }
 
   onSubmit() {
-    var body = {
+    var body : object = {
       bookId : this.book?.bookId,
       title : this.editForm.value?.Title,
       author : this.editForm.value?.Author,
@@ -62,7 +63,7 @@ export class EditBookComponent implements OnInit {
     this.bookService.editBook(body).then((res : Response) => {
       if(res) {
         if(res.status===200) {
-          this.router.navigateByUrl('/book/'+body.bookId.toString());
+          this.router.navigateByUrl('/book/'+body['bookId'].toString());
           this.toastr.success('Success','Book Edited');
         }
         else {

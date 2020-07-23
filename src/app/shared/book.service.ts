@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { UserComponent } from 'src/app/user/user.component'
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Book } from '../books/book';
+import { Variable } from '@angular/compiler/src/render3/r3_ast';
 
 @Injectable({
     providedIn: 'root'
@@ -28,11 +30,11 @@ import { catchError } from 'rxjs/operators';
       return this.http.post(this.BaseUri+'/books/addbook',bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
     }
 
-    editBook(bookData : any) : Promise<Object> {
-      return this.http.put(this.BaseUri+'/books/'+bookData.bookId,bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
+    editBook(bookData : object) : Promise<Object> {
+      return this.http.put(this.BaseUri+'/books/'+bookData['bookId'],bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
     }
 
-    generateImageURL(title : any) : string {
+    generateImageURL(title : string) : string {
       var str = "assets/images/"+
                 title.split(' ').join('_').toLowerCase().concat(".jpeg");
       return str;
