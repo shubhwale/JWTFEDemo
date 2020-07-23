@@ -20,11 +20,11 @@ import { catchError } from 'rxjs/operators';
         return this.http.get(this.BaseUri+'/books/getcategories').pipe(catchError(this.handleError));
     }
 
-    findBookById(id: any) : Promise<Object> {
+    findBookById(id: number) : Promise<Object> {
       return this.http.get(this.BaseUri+'/books/'+id).pipe(catchError(this.handleError)).toPromise();
     }
 
-    addBook(bookData: any) : Promise<Object> {
+    addBook(bookData: object) : Promise<Object> {
       return this.http.post(this.BaseUri+'/books/addbook',bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
     }
   
