@@ -3,6 +3,7 @@ import { BookService } from 'src/app/shared/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'; // Notice it is imported from @angular/common/http instead of @angular/http
 
 @Component({
   selector: 'app-add-book',
@@ -14,10 +15,10 @@ export class AddBookComponent implements OnInit {
   
   constructor(public service : BookService,private toastr : ToastrService, private router : Router, private fb : FormBuilder) { }
 
-  formModel2;
+  addBookForm;
   
   ngOnInit(): void {
-    this.formModel2 = this.fb.group({
+    this.addBookForm = this.fb.group({
       BookID : ['',[Validators.required,Validators.min(1)]],
       Title : ['',[Validators.required,Validators.minLength(3)]],
       Author : ['',[Validators.required,Validators.minLength(3)]],
@@ -31,25 +32,30 @@ export class AddBookComponent implements OnInit {
 
   onSubmit() {
     var body = {
-      bookId : parseInt(this.formModel2.value.BookID),
-      title : this.formModel2.value.Title,
-      author : this.formModel2.value.Author,
-      publisher : this.formModel2.value.Publisher,
-      noOfPages : parseInt(this.formModel2.value.NoOfPages),
+      bookId : parseInt(this.addBookForm.value.BookID),
+      title : this.addBookForm.value.Title,
+      author : this.addBookForm.value.Author,
+      publisher : this.addBookForm.value.Publisher,
+      noOfPages : parseInt(this.addBookForm.value.NoOfPages),
       rating : 0,
-      edition : parseInt(this.formModel2.value.Edition),
-      price : parseInt(this.formModel2.value.Price),
-      releaseDate : this.service.generateDateString(this.formModel2.value.ReleaseDate),
-      imageUrl : this.service.generateImageURL(this.formModel2.value.Title)
+      edition : parseInt(this.addBookForm.value.Edition),
+      price : parseInt(this.addBookForm.value.Price),
+      releaseDate : this.generateDateString(this.addBookForm.value.ReleaseDate),
+      imageUrl : this.generateImageURL(this.addBookForm.value.Title)
     };
 
     this.service.addBook(body).then((res:Response) => {
       if(res) {
         if(res.status===200) {
-          this.router.navigateByUrl('/books');
+          console.log(res.status);
+          console.log(res.statusText);
+          this.addBookForm.reset();
           this.toastr.success('Success','New Book Added');
+          this.router.navigateByUrl('/book/'+body?.bookId);
         }
         else {
+          console.log(res.status);
+          console.log(res.statusText);
           this.toastr.error('Fail','Cannot Add Book');
         }
       }
@@ -59,6 +65,25 @@ export class AddBookComponent implements OnInit {
     });
   }
 
-  
+  generateImageURL(title : string) : string {
+    var str = "assets/images/"+
+              title.split(' ').join('_').toLowerCase().concat(".jpeg");
+    return str;
+  }
+
+  generateDateString(jsonDate : object) : string {
+    var str = "";
+    str=jsonDate['year']+"-";
+    var month : string = jsonDate['month']+"";
+    if(month.length==1) {
+      month="0"+month;
+    }
+    var day : string = jsonDate['day']+"";
+    if(day.length==1) {
+      day="0"+day;
+    }
+    str+=month+"-"+day;
+    return str;
+  }
 
 }
