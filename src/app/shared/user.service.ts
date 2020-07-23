@@ -12,7 +12,7 @@ export class UserService {
   private readonly BaseUri = 'https://localhost:44335/api';
 
   register(body) {
-    return this.http.post(this.BaseUri+'/users/register',body);
+    return this.http.post(this.BaseUri+'/users/register',body).pipe(catchError(this.handleError));
   }
 
   login(formData) {
