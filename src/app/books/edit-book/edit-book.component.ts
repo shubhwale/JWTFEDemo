@@ -19,7 +19,7 @@ export class EditBookComponent implements OnInit {
     config.max=5;
   }
 
-  formModel3;
+  editForm;
 
   book : Book;
 
@@ -33,7 +33,7 @@ export class EditBookComponent implements OnInit {
         console.log(err);
       })
     });
-    this.formModel3 = this.fb.group({
+    this.editForm = this.fb.group({
       BookID : '',
       Title : ['',[Validators.minLength(3),Validators.required]],
       Author : ['',[Validators.required,Validators.minLength(3)]],
@@ -48,14 +48,14 @@ export class EditBookComponent implements OnInit {
   onSubmit() {
     var body = {
       bookId : this.book?.bookId,
-      title : this.formModel3.value.Title,
-      author : this.formModel3.value.Author,
-      publisher : this.formModel3.value.Publisher,
-      noOfPages : parseInt(this.formModel3.value.NoOfPages),
+      title : this.editForm.value?.Title,
+      author : this.editForm.value?.Author,
+      publisher : this.editForm.value?.Publisher,
+      noOfPages : parseInt(this.editForm.value?.NoOfPages),
       rating : this.book?.rating,
-      edition : parseInt(this.formModel3.value.Edition),
-      price : parseInt(this.formModel3.value.Price),
-      releaseDate : this.bookService.generateDateString(this.formModel3.value.ReleaseDate),
+      edition : parseInt(this.editForm.value?.Edition),
+      price : parseInt(this.editForm.value?.Price),
+      releaseDate : this.bookService.generateDateString(this.editForm.value?.ReleaseDate),
       imageUrl : this.book?.imageUrl
     };
 
