@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule , FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +17,7 @@ import { BooksListComponent } from './books/books-list/books-list.component';
 import { HeaderComponent } from './header/header.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
 import { AddBookComponent } from './books/add-book/add-book.component';
+import { EditBookComponent } from './books/edit-book/edit-book.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { AddBookComponent } from './books/add-book/add-book.component';
     BooksListComponent,
     BookDetailsComponent,
     HeaderComponent,
-    AddBookComponent
+    AddBookComponent,
+    EditBookComponent
   ],
   imports: [
     BrowserModule,

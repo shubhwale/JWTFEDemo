@@ -1,11 +1,12 @@
 <div class="container">
-    <table class="table table-bordered" *ngIf = "booksList && booksList.length">
+    <table class="table table-bordered" *ngIf = "this.booksList && this.booksList.length">
         <thead>
             <tr>
                 <th>Book Image</th>
                 <th>Book Title</th>
                 <th>Book Price</th>
                 <th>Book Rating</th>
+                <th>Options</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +16,9 @@
                 <td>{{ book.price | currency: "INR"}}</td>
                 <td>
                     <ngb-rating [rate] = "book.rating"></ngb-rating>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info mr-1" routerLink = "/edit_book/{{ book.bookId }}">Edit</button>
                 </td>
             </tr>
         </tbody>

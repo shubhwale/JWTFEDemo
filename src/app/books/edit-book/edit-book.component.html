@@ -1,0 +1,91 @@
+<div class="wrapper">
+    <div class="wrapped-div">
+        <div>
+            <img src="/assets/images/edit_book.png" class="mx-auto d-block" style="height: 30%; width: 30%;">
+            <form [formGroup]="this.editForm" ngDefaultControl autocomplete="off" (ngSubmit)="onSubmit()" class="mx-4">
+                <div class="form-group required">
+                    <label>BookID</label>
+                    <input class="form-control" formControlName="BookID" [readonly]="true">
+                </div>
+                <div class="form-group required">
+                    <label>Title</label>
+                    <input class="form-control" formControlName="Title">
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Title').dirty && this.editForm.get('Title').errors?.required">This
+                        field is required</label>
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Title').dirty && this.editForm.get('Title').errors?.minlength">Minimum
+                        3 characters required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Author</label>
+                    <input class="form-control" formControlName="Author">
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Author').dirty && this.editForm.get('Author').errors?.required">This
+                        field is required</label>
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Title').dirty && this.editForm.get('Author').errors?.minlength">Minimum
+                        3 characters required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Publisher</label>
+                    <input class="form-control" formControlName="Publisher">
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Publisher').dirty && this.editForm.get('Publisher').errors?.required">This
+                        field is required</label>
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Publisher').dirty && this.editForm.get('Publisher').errors?.minlength">Minimum
+                        3 characters required</label>
+                </div>
+                <div class="form-group required">
+                    <label>Number of Pages</label>
+                    <input class="form-control" formControlName="NoOfPages">
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('NoOfPages').dirty && this.editForm.get('NoOfPages').errors?.required">This
+                        field is required</label>
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('NoOfPages').dirty && this.editForm.get('NoOfPages').errors?.min">Number
+                        of pages should be more</label>
+                </div>
+                <div class="form-group required">
+                    <label>Edition</label>
+                    <input class="form-control" formControlName="Edition">
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Edition').dirty && this.editForm.get('Edition').errors?.required">This
+                        field is required</label>
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Edition').dirty && this.editForm.get('Edition').errors?.min">Invalid
+                        edition number</label>
+                </div>
+                <div class="form-group required">
+                    <label>Price</label>
+                    <input class="form-control" formControlName="Price">
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Price').dirty && this.editForm.get('Price').errors?.required">This
+                        field is required</label>
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('Price').dirty && this.editForm.get('Price').errors?.min">Invalid
+                        price</label>
+                </div>
+                <div class="form-group required">
+                    <label>Release Date</label>
+                    <input type="date" class="form-control" formControlName="ReleaseDate" placeholder="dd/mm/yyyy">
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('ReleaseDate').dirty && this.editForm.get('ReleaseDate').errors?.required">This
+                        field is required</label>
+                    <label class="text-danger"
+                        *ngIf="this.editForm.get('ReleaseDate').dirty && (this.editForm.get('ReleaseDate').errors?.minlength || this.editForm.get('ReleaseDate').errors?.maxlength)">Date
+                        format is wrong</label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-8 offset-md-2">
+                        <button type="submit" class="btn btn-lg btn-block"
+                            [disabled]="!(this.editForm.dirty && this.editForm.valid)">Update </button>
+                        <button routerLink="/book/{{ this.book?.bookId }}" class="btn btn-lg btn-block"
+                            id="c">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
