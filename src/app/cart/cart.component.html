@@ -1,1 +1,31 @@
-<p>cart works!</p>
+<div *ngIf="this.cartItems.length === 0" class="alert alert-info text-center">Your cart is empty</div>
+
+
+<div *ngIf="this.cartItems.length > 0" class="container">
+    <table class="table table-bordered" *ngIf = "this.booksList && this.booksList.length">
+        <thead>
+            <tr>
+                <th>Book Image</th>
+                <th>Book Title</th>
+                <th>Book Rating</th>
+                <th>Quantity</th>
+                <th>Book Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let book of cartItems">
+                <td><a routerLink = "/book/{{ book.bookId }}"><img src = "{{ book.imageUrl }}" style="width: 70px; height: 90px"/></a></td>
+                <td>{{ book.title }}</td>
+                <td>
+                    <ngb-rating [rate] = "book.rating"></ngb-rating>
+                </td>
+                
+                <td>{{ book.price | currency: "INR"}}</td>
+                <td>
+                    <button type="button" class="btn btn-success mr-1" routerLink = "#">Add to cart</button>
+                    <button type="button" class="btn btn-info mr-1" routerLink = "/edit_book/{{ book.bookId }}">Edit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
