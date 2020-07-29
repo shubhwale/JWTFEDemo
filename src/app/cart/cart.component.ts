@@ -3,7 +3,6 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Cart } from './cart';
 import { CartService } from 'src/app/shared/cart.service';
 import { Observable } from 'rxjs';
-import { ignoreElements } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart',
