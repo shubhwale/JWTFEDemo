@@ -1,0 +1,47 @@
+<div *ngIf="cartComponentRef.cartItems.length === 0" class="alert alert-info text-center">Your cart is empty</div>
+
+
+<div *ngIf="cartComponentRef.cartItems.length > 0" class="container">
+    <table class="table table-bordered" *ngIf = "cartComponentRef.cartItems && cartComponentRef.cartItems.length">
+        <thead>
+            <tr>
+                <th>Book Image</th>
+                <th>Book Title</th>
+                <th>Book Rating</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let book of cartComponentRef.cartItems; let i=index;">
+                <td><a routerLink = "/book/{{ book.bookId }}"><img src = "{{ book.imageUrl }}" style="width: 70px; height: 90px"/></a></td>
+                <td>{{ book.title }}</td>
+                <td>
+                    <ngb-rating [rate] = "book.rating"></ngb-rating>
+                </td>
+                <td>
+                    <select class="bootstrap-select" [(ngModel)]="book.quantity" (change)="updateTotalPrice()">
+                        <option *ngFor="let newQuantity of quantityArray"
+                        [selected]="book.quantity==newQuantity">{{ newQuantity }}</option>
+                    </select>
+                </td>
+                <td>{{ (book.price*book.quantity) | currency: "INR"}}</td>
+                <td>
+                    <button type="button" class="btn btn-danger" (click)="removeCartItem(book,i)">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="text-right font-weight-bold">Total Price</td>
+                <td class="text-center">{{ totalPrice | currency: "INR"}}</td>
+                <td>
+                    <button type="button" routerLink="#" class="btn btn-success text-left">Place Order</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -3,6 +3,8 @@ import { Book } from '../book';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from 'src/app/shared/book.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { CartService } from 'src/app/shared/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-details',
@@ -12,7 +14,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class BookDetailsComponent implements OnInit {
 
-  constructor(public bookService: BookService,config: NgbRatingConfig,private route: ActivatedRoute) {
+  constructor(public bookService: BookService,config: NgbRatingConfig,private route: ActivatedRoute,
+    private cart: CartService,private toastr : ToastrService) {
     config.readonly = true;
     config.max=5;
   }
@@ -30,6 +33,16 @@ export class BookDetailsComponent implements OnInit {
           console.log(err);
       })
   })
+  }
+
+  addToCart() {
+    var status : string = this.cart.sendProduct(this.book);
+    if(status == "Success") {
+      this.toastr.success(this.book.title+" Added","Success");
+    }
+    else {
+      this.toastr.info("Already exists in cart","Duplicate");
+    }
   }
 
 }
