@@ -28,7 +28,7 @@
                 </td>
                 <td>{{ (book.price*book.quantity) | currency: "INR"}}</td>
                 <td>
-                    <button type="button" class="btn btn-danger" (click)="removeCartItem(i)">Remove</button>
+                    <button type="button" class="btn btn-danger" (click)="removeCartItem(book,i)">Remove</button>
                 </td>
             </tr>
         </tbody>

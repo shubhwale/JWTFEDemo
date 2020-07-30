@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Cart } from './cart';
 import { CartService } from 'src/app/shared/cart.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -25,13 +24,13 @@ export class CartComponent implements OnInit {
 
   quantityArray: number[] = [1,2,3,4,5];
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() : void {
       if(localStorage.getItem("cartItems")==null) {
         localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
       }
-      await this.populateCart();
+      this.populateCart();
       this.totalPrice=0;
-      await CartComponent.cartItems.forEach( item => {
+      CartComponent.cartItems.forEach( item => {
         this.totalPrice+=(item.quantity*item.price);
       });
   }
@@ -39,7 +38,7 @@ export class CartComponent implements OnInit {
   populateCart(): void {
     if(localStorage.getItem("cartItems").length>0) {
       const localStoredCartItems : Cart[]= JSON.parse(localStorage.getItem("cartItems")) ;
-      if(localStoredCartItems) {
+      if(localStoredCartItems.length>0) {
         loop: for(var i of localStoredCartItems) {
           for (var j of CartComponent.cartItems) {
             if(i.bookId==j.bookId) {
@@ -56,30 +55,28 @@ export class CartComponent implements OnInit {
 
   updateTotalPrice(): void {
     this.totalPrice=0;
-    CartComponent.cartItems.forEach( item => {
+    CartComponent.cartItems.forEach( (item: Cart) => {
       this.totalPrice+=(item.quantity*item.price);
     });
     localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
   }
 
   displayCartItems(): void {
-    this.cart.getProduct().then((observable: Observable<Cart[]>) => {
-      if(observable) {
-        observable.subscribe((tempCartItems : Cart[]) =>{
-          if(tempCartItems) {
-            tempCartItems.forEach((value : Cart) => {
-              if(CartComponent.cartItems.indexOf(value)==-1) {
-                CartComponent.cartItems.push(value);
-              }
-            });
+    this.cart.getProduct().subscribe((tempCartItems:Cart[]) => {
+      if(tempCartItems) {
+          tempCartItems.forEach((value : Cart) => {
+            if(CartComponent.cartItems.indexOf(value)==-1) {
+            CartComponent.cartItems.push(value);
           }
         });
       }
     });
   }
 
-  removeCartItem(index: number): void {
-    CartComponent.cartItems.splice(index, 1);
+  removeCartItem(cartItem : Cart,index: number): void {
+    const index2: number = this.cart.cartItems.getValue().indexOf(cartItem);
+    this.cart.cartItems.getValue().splice(index2,1);
+    CartComponent.cartItems.splice(index,1);
     localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
   }
 }

@@ -32,8 +32,13 @@ export class BooksListComponent implements OnInit {
     });
   }
 
-  async addToCart(book : Book) {
-    await this.cart.sendProduct(book);
-    this.toastr.success(book.title+" Added","Success");
+  addToCart(book : Book) {
+    var status : string = this.cart.sendProduct(book);
+    if(status == "Success") {
+      this.toastr.success(book.title+" Added",status);
+    }
+    else {
+      this.toastr.info("Already exists in cart","Duplicate");
+    }
   }
 }

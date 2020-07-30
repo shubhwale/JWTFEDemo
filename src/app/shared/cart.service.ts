@@ -9,19 +9,35 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class CartService {
   
-  private cartItems: BehaviorSubject<Cart[]> = new BehaviorSubject([]);
+  public cartItems: BehaviorSubject<Cart[]> = new BehaviorSubject([]);
   static counter: number=3;
 
   constructor() { }
 
-  async sendProduct(book : Book) {
+  sendProduct(book : Book): string {
+    var status : string = "Success";
     const tempItem : Cart = new Cart(CartService.counter,book.bookId,book.title,book.imageUrl,book.rating,1,book.price);
-    await this.cartItems.next([tempItem]);
-    CartService.counter+=1;
+    const values: Cart[] =  this.cartItems.getValue();
+    if(values.length!=0) {
+      for(var i of values) {
+        if(i.bookId==tempItem.bookId) {
+          status="Failed"
+        }
+        else {
+          this.cartItems.next([tempItem]);
+          CartService.counter+=1;
+        }
+      }
+    }
+    else {
+      this.cartItems.next([tempItem]);
+      CartService.counter+=1;
+    }
+    return status; 
   }
 
-  async getProduct() : Promise<Observable<Cart[]>> {
-    return await this.cartItems.asObservable();
+  getProduct(): Observable<Cart[]>{
+    return this.cartItems.asObservable();
   }
 
 }
