@@ -19,7 +19,6 @@ export class AddBookComponent implements OnInit {
   
   ngOnInit(): void {
     this.addBookForm = this.fb.group({
-      BookID : ['',[Validators.required,Validators.min(1)]],
       Title : ['',[Validators.required,Validators.minLength(3)]],
       Author : ['',[Validators.required,Validators.minLength(3)]],
       Publisher : ['',[Validators.required,Validators.minLength(3)]],
@@ -32,7 +31,6 @@ export class AddBookComponent implements OnInit {
 
   onSubmit() {
     var body = {
-      bookId : parseInt(this.addBookForm.value.BookID),
       title : this.addBookForm.value.Title,
       author : this.addBookForm.value.Author,
       publisher : this.addBookForm.value.Publisher,
@@ -47,11 +45,9 @@ export class AddBookComponent implements OnInit {
     this.service.addBook(body).then((res:Response) => {
       if(res) {
         if(res.status===200) {
-          console.log(res.status);
-          console.log(res.statusText);
           this.addBookForm.reset();
           this.toastr.success('Success','New Book Added');
-          this.router.navigateByUrl('/book/'+body?.bookId);
+          this.router.navigateByUrl('/book/'+res.body["bookId"]);
         }
         else {
           console.log(res.status);

@@ -4,10 +4,6 @@
             <img src="/assets/images/edit_book.png" class="mx-auto d-block" style="height: 30%; width: 30%;">
             <form [formGroup]="this.editForm" ngDefaultControl autocomplete="off" (ngSubmit)="onSubmit()" class="mx-4">
                 <div class="form-group required">
-                    <label>BookID</label>
-                    <input class="form-control" formControlName="BookID" [readonly]="true">
-                </div>
-                <div class="form-group required">
                     <label>Title</label>
                     <input class="form-control" formControlName="Title">
                     <label class="text-danger"

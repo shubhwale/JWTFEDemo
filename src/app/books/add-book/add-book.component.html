@@ -4,12 +4,6 @@
             <img src="/assets/images/add_book.png" class="mx-auto d-block mt-4" style="height: 20%; width: 20%;">
             <form [formGroup]="this.addBookForm" autocomplete="off" (submit)="onSubmit()" class="mx-4">
                 <div class="form-group required">
-                    <label>BookID</label>
-                    <input class="form-control" formControlName="BookID">
-                    <label class="text-danger" *ngIf="this.addBookForm.get('BookID').touched && this.addBookForm.get('BookID').errors?.required">This field is required</label>
-                    <label class="text-danger" *ngIf="this.addBookForm.get('BookID').touched && this.addBookForm.get('BookID').errors?.min">Invalid ID</label>
-                </div>
-                <div class="form-group required">
                     <label>Title</label>
                     <input class="form-control" formControlName="Title">
                     <label class="text-danger" *ngIf="this.addBookForm.get('Title').touched && this.addBookForm.get('Title').errors?.required">This field is required</label>
