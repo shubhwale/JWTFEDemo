@@ -21,7 +21,6 @@ export class EditBookComponent implements OnInit {
   }
 
   editForm : FormGroup = this.fb.group({
-    BookID : '',
     Title : ['',[Validators.minLength(3),Validators.required]],
     Author : ['',[Validators.required,Validators.minLength(3)]],
     Publisher : ['',[Validators.required,Validators.minLength(3)]],
@@ -39,7 +38,6 @@ export class EditBookComponent implements OnInit {
       await this.bookService.findBookById(bookId).
       then((data : Book) => {
         this.book = data;
-        this.editForm.controls['BookID'].setValue(data.bookId);
         this.editForm.controls['Title'].setValue(data.title);
         this.editForm.controls['Author'].setValue(data.author);
         this.editForm.controls['Publisher'].setValue(data.publisher);
