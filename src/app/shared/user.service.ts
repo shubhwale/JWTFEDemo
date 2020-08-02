@@ -19,10 +19,8 @@ export class UserService {
      return this.http.post(this.BaseUri+'/users/login',formData);
   }
 
-  getUserProfile() {
-    //var tokenHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('accessToken')});
-    //return this.http.get(this.BaseUri+'/userprofile',{headers : tokenHeader});
-    return this.http.get(this.BaseUri+'/users/getuserprofile');
+  getUserDetails(userId : number) : Promise<Object> {
+    return this.http.get(this.BaseUri+'/users/getuserdetails/'+userId).pipe(catchError(this.handleError)).toPromise();;
   }
 
   getCities() {

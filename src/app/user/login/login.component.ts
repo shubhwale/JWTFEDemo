@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(localStorage.getItem('accessToken')!=null && localStorage.getItem('refreshToken')!=null) {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/books');
     }
   }
 
@@ -28,10 +28,11 @@ export class LoginComponent implements OnInit {
       (res : any) => {
         localStorage.setItem('accessToken',res.accessToken);
         localStorage.setItem('refreshToken',res.refreshToken);
-        this.router.navigateByUrl('/home');
+        localStorage.setItem('userId',res.userId);
+        this.router.navigateByUrl('/books');
       },
       err => {
-        if(err.status == 400) {
+        if(err.status == 404) {
           this.toastr.error('Incorrect username or password','Authentication failed');
         }
         else {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
+import { UserDetails } from './UserDetails';
 
 @Component({
   selector: 'app-home',
@@ -9,27 +10,29 @@ import { UserService } from '../shared/user.service';
   ]
 })
 export class HomeComponent implements OnInit {
-  userDetails;
-  constructor(private router : Router,private service : UserService) { }
+  userDetails : UserDetails = new UserDetails();
+  constructor(private router : Router,private service : UserService) { 
+  }
+  public flag: boolean=false;
 
   ngOnInit(): void {
-    if(localStorage.getItem('accessToken')==null) {
-      this.router.navigate(['/user/login']);
+    const userId : number = +localStorage.getItem("userId");
+    if(userId) {
+      this.service.getUserDetails(userId).then((value: Object) => {
+        this.userDetails.userID=value['userId'];
+        this.userDetails.userFullName=value['name'];
+        this.userDetails.userEmail=value['email'];
+      });
+      this.flag=true;
     }
-    this.service.getUserProfile().subscribe(
-      res => {
-        this.userDetails = res;
-      },
-      err => {
-        console.log(err);
-      }
-    );
   }
 
   onLogout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-    this.router.navigate(['/user/login']);
+    localStorage.removeItem('userId');
+    this.flag=false;
+    this.router.navigateByUrl('/user/login');
   }
 
 }
