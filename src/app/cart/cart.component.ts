@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Cart } from './cart';
-import { CartService } from 'src/app/shared/cart.service';
+
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +17,7 @@ export class CartComponent implements OnInit {
   
   totalPrice: number=0;
 
-  constructor(config: NgbRatingConfig, private cart: CartService) { 
+  constructor(config: NgbRatingConfig) { 
     config.readonly = true;
     config.max=5;
   }
@@ -40,16 +40,15 @@ export class CartComponent implements OnInit {
       const localStoredCartItems : Cart[]= JSON.parse(localStorage.getItem("cartItems")) ;
       if(localStoredCartItems.length>0) {
         loop: for(var i of localStoredCartItems) {
-          for (var j of CartComponent.cartItems) {
+          for(var j of CartComponent.cartItems) {
             if(i.bookId==j.bookId) {
-              break loop;
+              continue loop;
             }
           }
           CartComponent.cartItems.push(i);
         }
       }
     }
-    this.displayCartItems();
     localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
   }
 
@@ -61,21 +60,7 @@ export class CartComponent implements OnInit {
     localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
   }
 
-  displayCartItems(): void {
-    this.cart.getProduct().subscribe((tempCartItems:Cart[]) => {
-      if(tempCartItems) {
-          tempCartItems.forEach((value : Cart) => {
-            if(CartComponent.cartItems.indexOf(value)==-1) {
-            CartComponent.cartItems.push(value);
-          }
-        });
-      }
-    });
-  }
-
-  removeCartItem(cartItem : Cart,index: number): void {
-    const index2: number = this.cart.cartItems.getValue().indexOf(cartItem);
-    this.cart.cartItems.getValue().splice(index2,1);
+  removeCartItem(index: number): void {
     CartComponent.cartItems.splice(index,1);
     localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
   }

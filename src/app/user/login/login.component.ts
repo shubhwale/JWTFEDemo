@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/shared/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HeaderComponent } from 'src/app/header/header.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  providers: [HeaderComponent],
   styles: [
   ]
 })
@@ -15,6 +17,7 @@ export class LoginComponent implements OnInit {
     Email : '',
     Password : ''
   }
+
   constructor(private service : UserService, private router : Router, private toastr : ToastrService) { }
 
   ngOnInit(): void {
@@ -29,6 +32,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('accessToken',res.accessToken);
         localStorage.setItem('refreshToken',res.refreshToken);
         localStorage.setItem('userId',res.userId);
+        //HeaderComponent.flag=true;
         this.router.navigateByUrl('/books');
       },
       err => {
