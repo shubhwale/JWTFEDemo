@@ -11,17 +11,19 @@ import { EditBookComponent } from './books/edit-book/edit-book.component';
 import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
-  {path : '', redirectTo : '/books',pathMatch : 'full'},
-  {path : 'user',component : UserComponent,
-  children :[
-    {path : "registration",component : RegistrationComponent}, //PATH /user/registration
-    {path : "login",component : LoginComponent}
-  ]},
-  {path : 'books',component : BooksListComponent},
-  {path : 'book/:id',component : BookDetailsComponent},
-  {path : 'add_book',component : AddBookComponent},
-  {path : 'edit_book/:id',component : EditBookComponent},
-  {path : 'cart',component : CartComponent,canActivate:[AuthGuard]}
+  { path: '', redirectTo: '/books', pathMatch: 'full' },
+  {
+    path: 'user', component: UserComponent,
+    children: [
+      { path: "registration", component: RegistrationComponent }, //PATH /user/registration
+      { path: "login", component: LoginComponent }
+    ]
+  },
+  { path: 'books', component: BooksListComponent },
+  { path: 'book/:id', component: BookDetailsComponent },
+  { path: 'add_book', component: AddBookComponent },
+  { path: 'edit_book/:id', component: EditBookComponent },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

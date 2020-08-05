@@ -3,32 +3,48 @@
     <div class="form-group required">
         <label>Name</label>
         <input class="form-control" formControlName="Name">
-        <label class="text-danger" *ngIf="user.formModel.get('Name').touched && user.formModel.get('Name').errors?.required">This field is required</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('Name').touched && user.formModel.get('Name').errors?.required">This field is
+            required</label>
     </div>
     <div class="form-group required">
         <label>Email</label>
         <input class="form-control" formControlName="Email">
-        <label class="text-danger" *ngIf="user.formModel.get('Email').touched && user.formModel.get('Email').errors?.email">Invalid Email address</label>
-        <label class="text-danger" *ngIf="user.formModel.get('Email').touched && user.formModel.get('Email').errors?.required">Email address required</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('Email').touched && user.formModel.get('Email').errors?.email">Invalid Email
+            address</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('Email').touched && user.formModel.get('Email').errors?.required">Email address
+            required</label>
     </div>
     <div formGroupName="Passwords">
         <div class="form-group required">
-        <label>Password</label>
-        <input type="password" class="form-control" formControlName="Password">
-        <label class="text-danger" *ngIf="user.formModel.get('Passwords.Password').touched && user.formModel.get('Passwords.Password').errors?.required">This field is mandatory</label>
-        <label class="text-danger" *ngIf="user.formModel.get('Passwords.Password').touched && user.formModel.get('Passwords.Password').errors?.minlength">Minimum 3 characters required</label>
+            <label>Password</label>
+            <input type="password" class="form-control" formControlName="Password">
+            <label class="text-danger"
+                *ngIf="user.formModel.get('Passwords.Password').touched && user.formModel.get('Passwords.Password').errors?.required">This
+                field is mandatory</label>
+            <label class="text-danger"
+                *ngIf="user.formModel.get('Passwords.Password').touched && user.formModel.get('Passwords.Password').errors?.minlength">Minimum
+                3 characters required</label>
         </div>
         <div class="form-group required">
             <label>Confirm Password</label>
             <input type="password" class="form-control" formControlName="ConfirmPassword">
-            <label class="text-danger" *ngIf="user.formModel.get('Passwords.ConfirmPassword').touched && user.formModel.get('Passwords.ConfirmPassword').errors?.required">This field is mandatory</label>
-            <label class="text-danger" *ngIf="user.formModel.get('Passwords.ConfirmPassword').touched && user.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Passwords do not match</label>
+            <label class="text-danger"
+                *ngIf="user.formModel.get('Passwords.ConfirmPassword').touched && user.formModel.get('Passwords.ConfirmPassword').errors?.required">This
+                field is mandatory</label>
+            <label class="text-danger"
+                *ngIf="user.formModel.get('Passwords.ConfirmPassword').touched && user.formModel.get('Passwords.ConfirmPassword').errors?.passwordMismatch">Passwords
+                do not match</label>
         </div>
     </div>
     <div class="form-group required">
         <label>Contact</label>
         <input class="form-control" formControlName="Contact">
-        <label class="text-danger" *ngIf="user.formModel.get('Contact').touched && user.formModel.get('Contact').errors?.required">This field is required</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('Contact').touched && user.formModel.get('Contact').errors?.required">This field
+            is required</label>
     </div>
     <div class="form-group required">
         <label>Gender</label>
@@ -36,12 +52,16 @@
             <option value="" selected disabled>Select</option>
             <option *ngFor="let choice of gender" [value]="choice">{{choice}}</option>
         </select>
-        <label class="text-danger" *ngIf="user.formModel.get('Gender').touched && user.formModel.get('Gender').errors?.required">This field is required</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('Gender').touched && user.formModel.get('Gender').errors?.required">This field is
+            required</label>
     </div>
     <div class="form-group required">
         <label>Address</label>
         <input class="form-control" formControlName="AddressLine">
-        <label class="text-danger" *ngIf="user.formModel.get('AddressLine').touched && user.formModel.get('AddressLine').errors?.required">This field is required</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('AddressLine').touched && user.formModel.get('AddressLine').errors?.required">This
+            field is required</label>
     </div>
     <div class="form-group required">
         <label>City</label>
@@ -49,7 +69,9 @@
             <option value="" selected disabled>Select</option>
             <option *ngFor="let city of myCities" [value]="city.cityId">{{city.cityName}}</option>
         </select>
-        <label class="text-danger" *ngIf="user.formModel.get('City').touched && user.formModel.get('City').errors?.required">This field is required</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('City').touched && user.formModel.get('City').errors?.required">This field is
+            required</label>
     </div>
     <div class="form-group required">
         <label>State</label>
@@ -57,7 +79,9 @@
             <option value="" selected disabled>Select</option>
             <option *ngFor="let state of myStates" [value]="state.stateId">{{state.stateName}}</option>
         </select>
-        <label class="text-danger" *ngIf="user.formModel.get('State').touched && user.formModel.get('State').errors?.required">This field is required</label>
+        <label class="text-danger"
+            *ngIf="user.formModel.get('State').touched && user.formModel.get('State').errors?.required">This field is
+            required</label>
     </div>
     <div class="form-row">
         <div class="form-group col-md-8 offset-md-2">

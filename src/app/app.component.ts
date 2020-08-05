@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'token-based-app';
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 }
