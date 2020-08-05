@@ -3,68 +3,100 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { UserComponent } from 'src/app/user/user.component'
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Book } from '../books/book';
+import { ToastrService } from 'ngx-toastr';
+import { Cart } from '../cart/cart';
 
 
 @Injectable({
-    providedIn: 'root'
-  })
-  export class BookService {
-  
-    constructor(private http: HttpClient, private user : UserComponent) { }
-    private readonly BaseUri = 'https://localhost:44335/api';
-  
-    getBooks() {
-        return this.http.get(this.BaseUri+'/books').pipe(catchError(this.handleError));
-    }
+  providedIn: 'root'
+})
+export class BookService {
 
-    getCategories() {
-        return this.http.get(this.BaseUri+'/books/getcategories').pipe(catchError(this.handleError));
-    }
+  constructor(private http: HttpClient, private user: UserComponent, private toastr: ToastrService) { }
+  private readonly BaseUri = 'https://localhost:44335/api';
+  counter: number = 1;
 
-    findBookById(id: number) : Promise<Object> {
-      return this.http.get(this.BaseUri+'/books/'+id).pipe(catchError(this.handleError)).toPromise();
-    }
+  getBooks() {
+    return this.http.get(this.BaseUri + '/books').pipe(catchError(this.handleError));
+  }
 
-    addBook(bookData: object) : Promise<Object> {
-      return this.http.post(this.BaseUri+'/books/addbook',bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
-    }
+  getCategories() {
+    return this.http.get(this.BaseUri + '/books/getcategories').pipe(catchError(this.handleError));
+  }
 
-    editBook(bookData : object) : Promise<Object> {
-      return this.http.put(this.BaseUri+'/books/'+bookData['bookId'],bookData,{observe : 'response'}).pipe(catchError(this.handleError)).toPromise();
-    }
+  findBookById(id: number): Promise<Object> {
+    return this.http.get(this.BaseUri + '/books/' + id).pipe(catchError(this.handleError)).toPromise();
+  }
 
-    generateImageURL(title : string) : string {
-      var str = "assets/images/"+
-                title.split(' ').join('_').toLowerCase().concat(".jpeg");
-      return str;
+  addBook(bookData: object): Promise<Object> {
+    return this.http.post(this.BaseUri + '/books/addbook', bookData, { observe: 'response' }).pipe(catchError(this.handleError)).toPromise();
+  }
+
+  editBook(bookData: object): Promise<Object> {
+    return this.http.put(this.BaseUri + '/books/' + bookData['bookId'], bookData, { observe: 'response' }).pipe(catchError(this.handleError)).toPromise();
+  }
+
+  generateImageURL(title: string): string {
+    var str = "assets/images/" +
+      title.split(' ').join('_').toLowerCase().concat(".jpeg");
+    return str;
+  }
+
+  generateDateString(jsonDate: object): string {
+    var str = "";
+    str = jsonDate['year'] + "-";
+    var month: string = jsonDate['month'] + "";
+    if (month.length == 1) {
+      month = "0" + month;
     }
-  
-    generateDateString(jsonDate : object) : string {
-      var str = "";
-      str=jsonDate['year']+"-";
-      var month : string = jsonDate['month']+"";
-      if(month.length==1) {
-        month="0"+month;
+    var day: string = jsonDate['day'] + "";
+    if (day.length == 1) {
+      day = "0" + day;
+    }
+    str += month + "-" + day;
+    return str;
+  }
+
+  addToCartService(book: Book) {
+    var status: string = "Duplicate";
+    var localStoredCartItems: Cart[] = JSON.parse(localStorage.getItem("cartItems"));
+    if (localStoredCartItems) {
+      var size: number = localStoredCartItems.length;
+      loop: for (var i = 0; i <= size; i++) {
+        var item: Cart = localStoredCartItems[i];
+        if (i == size) {
+          localStoredCartItems.push(new Cart(this.counter++, book.bookId, book.title,
+            book.imageUrl, book.rating, 1, book.price));
+          localStorage.setItem("cartItems", JSON.stringify(localStoredCartItems));
+          status = "Success";
+        }
+        else if (item.bookId == book.bookId) {
+          break loop;
+        }
+        else {
+          continue loop;
+        }
       }
-      var day : string = jsonDate['day']+"";
-      if(day.length==1) {
-        day="0"+day;
-      }
-      str+=month+"-"+day;
-      return str;
     }
-  
-    private handleError(error: HttpErrorResponse) {
-      if (error.error instanceof ErrorEvent) {
-        // A client-side or network error occurred. Handle it accordingly.
-        console.error('An error occurred:', error.error.message);
-      } else {
-        // The backend returned an unsuccessful response code.
-        // The response body may contain clues as to what went wrong,
-        console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
-      }
-      // return an observable with a user-facing error message
-      return throwError('Something bad happened. Please try again later.');
+    if (status == "Success") {
+      this.toastr.success(book.title + " Added", status);
+    }
+    else {
+      this.toastr.info("Already exists in cart", "Duplicate");
     }
   }
-  
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError('Something bad happened. Please try again later.');
+  }
+}

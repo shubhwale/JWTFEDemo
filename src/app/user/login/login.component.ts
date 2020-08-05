@@ -14,30 +14,29 @@ import { HeaderComponent } from 'src/app/header/header.component';
 })
 export class LoginComponent implements OnInit {
   formModel = {
-    Email : '',
-    Password : ''
+    Email: '',
+    Password: ''
   }
 
-  constructor(private service : UserService, private router : Router, private toastr : ToastrService) { }
+  constructor(private service: UserService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('accessToken')!=null && localStorage.getItem('refreshToken')!=null) {
+    if (localStorage.getItem('accessToken') != null && localStorage.getItem('refreshToken') != null) {
       this.router.navigateByUrl('/books');
     }
   }
 
-  onSubmit(form : NgForm) {
+  onSubmit(form: NgForm) {
     this.service.login(form.value).subscribe(
-      (res : any) => {
-        localStorage.setItem('accessToken',res.accessToken);
-        localStorage.setItem('refreshToken',res.refreshToken);
-        localStorage.setItem('userId',res.userId);
-        //HeaderComponent.flag=true;
+      (res: any) => {
+        localStorage.setItem('accessToken', res.accessToken);
+        localStorage.setItem('refreshToken', res.refreshToken);
+        localStorage.setItem('userId', res.userId);
         this.router.navigateByUrl('/books');
       },
       err => {
-        if(err.status == 404) {
-          this.toastr.error('Incorrect username or password','Authentication failed');
+        if (err.status == 401) {
+          this.toastr.error('Incorrect username or password', 'Authentication failed');
         }
         else {
           console.log(err);

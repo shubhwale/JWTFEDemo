@@ -11,57 +11,55 @@ import { Cart } from './cart';
 })
 export class CartComponent implements OnInit {
 
-  public cartComponentRef = CartComponent;
+  cartItems: Cart[] = [];
 
-  @Input() static cartItems : Cart[]= [];
-  
-  totalPrice: number=0;
+  totalPrice: number = 0;
 
-  constructor(config: NgbRatingConfig) { 
+  constructor(config: NgbRatingConfig) {
     config.readonly = true;
-    config.max=5;
+    config.max = 5;
   }
 
-  quantityArray: number[] = [1,2,3,4,5];
+  quantityArray: number[] = [1, 2, 3, 4, 5];
 
-  ngOnInit() : void {
-      if(localStorage.getItem("cartItems")==null) {
-        localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
-      }
-      this.populateCart();
-      this.totalPrice=0;
-      CartComponent.cartItems.forEach( item => {
-        this.totalPrice+=(item.quantity*item.price);
-      });
+  ngOnInit(): void {
+    if (localStorage.getItem("cartItems") == null) {
+      localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+    }
+    this.populateCart();
+    this.totalPrice = 0;
+    this.cartItems.forEach(item => {
+      this.totalPrice += (item.quantity * item.price);
+    });
   }
 
   populateCart(): void {
-    if(localStorage.getItem("cartItems").length>0) {
-      const localStoredCartItems : Cart[]= JSON.parse(localStorage.getItem("cartItems")) ;
-      if(localStoredCartItems.length>0) {
-        loop: for(var i of localStoredCartItems) {
-          for(var j of CartComponent.cartItems) {
-            if(i.bookId==j.bookId) {
+    if (localStorage.getItem("cartItems").length > 0) {
+      const localStoredCartItems: Cart[] = JSON.parse(localStorage.getItem("cartItems"));
+      if (localStoredCartItems.length > 0) {
+        loop: for (var i of localStoredCartItems) {
+          for (var j of this.cartItems) {
+            if (i.bookId == j.bookId) {
               continue loop;
             }
           }
-          CartComponent.cartItems.push(i);
+          this.cartItems.push(i);
         }
       }
     }
-    localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
+    localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
   }
 
   updateTotalPrice(): void {
-    this.totalPrice=0;
-    CartComponent.cartItems.forEach( (item: Cart) => {
-      this.totalPrice+=(item.quantity*item.price);
+    this.totalPrice = 0;
+    this.cartItems.forEach((item: Cart) => {
+      this.totalPrice += (item.quantity * item.price);
     });
-    localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
+    localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
   }
 
   removeCartItem(index: number): void {
-    CartComponent.cartItems.splice(index,1);
-    localStorage.setItem("cartItems",JSON.stringify(CartComponent.cartItems));
+    this.cartItems.splice(index, 1);
+    localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
   }
 }

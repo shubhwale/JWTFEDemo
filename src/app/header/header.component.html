@@ -1,40 +1,41 @@
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="0">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    
-    <a class="navbar-brand" href="/books">
-        <img src="/assets/images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-        BookApp
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" id="ac">
-          <a class="nav-link" routerLink="/books">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/add_book">Add Book</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" routerLink="/cart">
-            <span #cartItemsCount class="mat-card mat-elevation-z4 mat-badge-hidden" 
-            matBadge="{{ classReference.count }}" matBadgeOverlap="false" matBadgeColor="accent">Cart</span>
-          </a>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right align-items-center">
-        <li #name class="nav-item text-light d-none">
-          Welcome {{ classReference.userDetails.userFullName }}
-        </li>
-        <li #login class="nav-item">
-          <button class="btn btn-primary ml-3" routerLink="/user/login">Login</button>
-        </li>
-        <li #logout class="nav-item d-none">
-          <button class="btn btn-danger ml-3" (click)="onLogout()">Logout</button>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <a class="navbar-brand" href="/books">
+    <img src="/assets/images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+    BookApp
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" id="ac">
+        <a class="nav-link" routerLink="/books">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/add_book">Add Book</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" routerLink="/cart">
+          <span #cartItemsCount class="mat-card mat-elevation-z4 mat-badge-hidden" matBadge="{{ this.count }}"
+            matBadgeOverlap="false" matBadgeColor="accent">Cart</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right align-items-center">
+      <li class="nav-item text-light" [hidden]="!flag">
+        Welcome {{ this.userDetails.userFullName }}
+      </li>
+      <li class="nav-item" [hidden]="flag">
+        <button class="btn btn-primary ml-3" routerLink="/user/login">Login</button>
+      </li>
+      <li class="nav-item" [hidden]="!flag">
+        <button class="btn btn-danger ml-3" (click)="onLogout()">Logout</button>
+      </li>
+    </ul>
+  </div>
+</nav>
