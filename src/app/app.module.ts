@@ -10,7 +10,6 @@ import { UserComponent } from './user/user.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { UserService } from './shared/user.service';
 import { LoginComponent } from './user/login/login.component';
-import { HomeComponent } from './home/home.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BooksListComponent } from './books/books-list/books-list.component';
@@ -19,6 +18,8 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
 import { AddBookComponent } from './books/add-book/add-book.component';
 import { EditBookComponent } from './books/edit-book/edit-book.component';
 import { CartComponent } from './cart/cart.component';
+import { BookService } from './shared/book.service';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,6 @@ import { CartComponent } from './cart/cart.component';
     UserComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent,
     BooksListComponent,
     BookDetailsComponent,
     HeaderComponent,
@@ -44,13 +44,16 @@ import { CartComponent } from './cart/cart.component';
     }),
     BrowserAnimationsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    MatBadgeModule
   ],
-  providers: [UserService,{
-    provide : HTTP_INTERCEPTORS,
-    useClass : AuthInterceptor,
-    multi : true
-  }],
-  bootstrap: [AppComponent]
+  providers: [UserService,BookService,HeaderComponent
+    ,{
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptor,
+      multi : true
+    }
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

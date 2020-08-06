@@ -38,7 +38,6 @@ export class RegistrationComponent implements OnInit {
       AddressLine : this.user.formModel.value.AddressLine,
       CityID : this.user.formModel.value.City,
       StateID : this.user.formModel.value.State,
-      //ConfirmPassword : this.formModel.value.Passwords.ConfirmPassword
     };
     this.service.register(body).subscribe(
       (res:any) => {

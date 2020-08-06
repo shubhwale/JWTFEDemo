@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/shared/book.service';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Book } from '../book';
-import { CartService } from 'src/app/shared/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { HeaderComponent } from 'src/app/header/header.component';
+import { CartService } from 'src/app/shared/cart.service';
 
 @Component({
   selector: 'app-books-list',
@@ -13,18 +14,18 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class BooksListComponent implements OnInit {
 
-  constructor(public bookService: BookService,private config: NgbRatingConfig,private cart: CartService,
-    private toastr : ToastrService) {
+  constructor(public bookService: BookService, private config: NgbRatingConfig, private toastr: ToastrService
+    ,private header: HeaderComponent, private cartService: CartService) {
     // customize default values of ratings used by this component tree
     config.readonly = true;
-    config.max=5;
+    config.max = 5;
   }
 
   booksList: Book[];
   categoryList: {}
 
   ngOnInit() {
-    this.bookService.getBooks().subscribe((data : Book[]) => {
+    this.bookService.getBooks().subscribe((data: Book[]) => {
       this.booksList = data;
     });
     this.bookService.getCategories().subscribe(categories => {
@@ -32,13 +33,13 @@ export class BooksListComponent implements OnInit {
     });
   }
 
-  addToCart(book : Book) {
-    var status : string = this.cart.sendProduct(book);
-    if(status == "Success") {
-      this.toastr.success(book.title+" Added",status);
+  addToCart(book: Book) {
+    const status: string = this.cartService.addToCartService(book);
+    if(status=="Success") {
+      this.toastr.success(book.title + " Added", status);
     }
     else {
-      this.toastr.info("Already exists in cart","Duplicate");
+      this.toastr.error("Already added","Duplicate");
     }
   }
 }

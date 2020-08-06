@@ -10,7 +10,7 @@
                         <button type="button" class="btn btn-primary mx-auto" style="margin-right:30%"
                             routerLink="/books">Back</button>
                         <button type="button" class="ml-1 btn btn-info" routerLink = "/edit_book/{{ book?.bookId }}">Edit</button>
-                        <button type="button" class="ml-1 btn btn-success" (click)="addToCart()">Add to cart</button>
+                        <button type="button" class="ml-1 btn btn-success" (click)="addToCart(book)">Add to cart</button>
                         <img class="mt-2 mx-auto d-block" src = "{{ book?.imageUrl }}" width="50%" height="80%"/>
                     </div>
                     <br><br>

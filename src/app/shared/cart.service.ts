@@ -1,43 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Book } from '../books/book';
 import { Cart } from '../cart/cart';
-import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
-   
+  providedIn: 'root'
 })
 export class CartService {
-  
-  public cartItems: BehaviorSubject<Cart[]> = new BehaviorSubject([]);
-  static counter: number=3;
 
+  counter: number=1;
   constructor() { }
 
-  sendProduct(book : Book): string {
-    var status : string = "Success";
-    const tempItem : Cart = new Cart(CartService.counter,book.bookId,book.title,book.imageUrl,book.rating,1,book.price);
-    const values: Cart[] =  this.cartItems.getValue();
-    if(values.length!=0) {
-      for(var i of values) {
-        if(i.bookId==tempItem.bookId) {
-          status="Failed"
+  addToCartService(book: Book): string {
+    var status: string = "Duplicate";
+    var localStoredCartItems: Cart[] = JSON.parse(localStorage.getItem("cartItems"));
+    if (localStoredCartItems) {
+      var size: number = localStoredCartItems.length;
+      loop: for (var i = 0; i <= size; i++) {
+        var item: Cart = localStoredCartItems[i];
+        if (i == size) {
+          localStoredCartItems.push(new Cart(this.counter++, book.bookId, book.title,
+            book.imageUrl, book.rating, 1, book.price));
+          localStorage.setItem("cartItems", JSON.stringify(localStoredCartItems));
+          status = "Success";
+        }
+        else if (item.bookId == book.bookId) {
+          break loop;
         }
         else {
-          this.cartItems.next([tempItem]);
-          CartService.counter+=1;
+          continue loop;
         }
       }
     }
-    else {
-      this.cartItems.next([tempItem]);
-      CartService.counter+=1;
-    }
-    return status; 
+    return status
   }
-
-  getProduct(): Observable<Cart[]>{
-    return this.cartItems.asObservable();
-  }
-
 }

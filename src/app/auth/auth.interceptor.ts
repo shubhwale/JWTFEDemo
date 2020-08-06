@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private router : Router) {
+    constructor(private router : Router, private toastr: ToastrService) {
         
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if(localStorage.getItem('accessToken')!=null) {
+        if(localStorage.getItem('accessToken')!=null && localStorage.getItem("refreshToken")!=null) {
             const clonedReq = req.clone({
                 headers : req.headers.set('Authorization','Bearer '+localStorage.getItem('accessToken'))
             });
@@ -20,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     err => {
                         if(err.status == 401) {
                             localStorage.removeItem('accessToken');
-                            
+                            localStorage.removeItem('refreshToken');
                             this.router.navigateByUrl('/user/login');
                         }
                     }
