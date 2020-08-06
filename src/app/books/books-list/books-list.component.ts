@@ -3,8 +3,8 @@ import { BookService } from 'src/app/shared/book.service';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Book } from '../book';
 import { ToastrService } from 'ngx-toastr';
-import { Cart } from 'src/app/cart/cart';
 import { HeaderComponent } from 'src/app/header/header.component';
+import { CartService } from 'src/app/shared/cart.service';
 
 @Component({
   selector: 'app-books-list',
@@ -15,7 +15,7 @@ import { HeaderComponent } from 'src/app/header/header.component';
 export class BooksListComponent implements OnInit {
 
   constructor(public bookService: BookService, private config: NgbRatingConfig, private toastr: ToastrService
-    ,private header: HeaderComponent) {
+    ,private header: HeaderComponent, private cartService: CartService) {
     // customize default values of ratings used by this component tree
     config.readonly = true;
     config.max = 5;
@@ -34,6 +34,12 @@ export class BooksListComponent implements OnInit {
   }
 
   addToCart(book: Book) {
-    this.bookService.addToCartService(book);
+    const status: string = this.cartService.addToCartService(book);
+    if(status=="Success") {
+      this.toastr.success(book.title + " Added", status);
+    }
+    else {
+      this.toastr.error("Already added","Duplicate");
+    }
   }
 }

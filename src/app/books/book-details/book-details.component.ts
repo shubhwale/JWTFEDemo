@@ -4,7 +4,7 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from 'src/app/shared/book.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Cart } from 'src/app/cart/cart';
+import { CartService } from 'src/app/shared/cart.service';
 
 @Component({
   selector: 'app-book-details',
@@ -15,7 +15,8 @@ import { Cart } from 'src/app/cart/cart';
 })
 export class BookDetailsComponent implements OnInit {
 
-  constructor(public bookService: BookService,config: NgbRatingConfig,private route: ActivatedRoute,private toastr : ToastrService) {
+  constructor(public bookService: BookService,config: NgbRatingConfig,private route: ActivatedRoute,private toastr : ToastrService,
+    private cartService: CartService) {
     config.readonly = true;
     config.max=5;
   }
@@ -35,33 +36,13 @@ export class BookDetailsComponent implements OnInit {
   })
   }
 
-  addToCart() {
-    var status : string="Duplicate";
-    var localStoredCartItems : Cart[]= JSON.parse(localStorage.getItem("cartItems")) ;
-    if(localStoredCartItems && localStoredCartItems!=[]) {
-      var size: number = localStoredCartItems.length;
-      loop: for(var i=0;i<=size;i++) {
-        var item: Cart = localStoredCartItems[i];
-        if(i==size) {
-          localStoredCartItems.push(new Cart(BookDetailsComponent.counter,this.book.bookId,this.book.title,
-          this.book.imageUrl,this.book.rating,1,this.book.price));
-          BookDetailsComponent.counter+=1;
-          localStorage.setItem("cartItems",JSON.stringify(localStoredCartItems));
-          status="Success";
-        }
-        else if(item.bookId==this.book.bookId) {
-          break loop;
-        }
-        else {
-          continue loop;
-        }
-      }
-    }
-    if(status == "Success") {
-      this.toastr.success(this.book.title+" Added",status);
+  addToCart(book: Book) {
+    const status: string = this.cartService.addToCartService(book);
+    if(status=="Success") {
+      this.toastr.success(book.title + " Added", status);
     }
     else {
-      this.toastr.info("Already exists in cart","Duplicate");
+      this.toastr.error("Already added","Duplicate");
     }
   }
 
