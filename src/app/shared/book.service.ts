@@ -3,9 +3,6 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { UserComponent } from 'src/app/user/user.component'
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Book } from '../books/book';
-import { ToastrService } from 'ngx-toastr';
-import { Cart } from '../cart/cart';
 
 
 @Injectable({
@@ -13,7 +10,7 @@ import { Cart } from '../cart/cart';
 })
 export class BookService {
 
-  constructor(private http: HttpClient, private user: UserComponent, private toastr: ToastrService) { }
+  constructor(private http: HttpClient, private user: UserComponent) { }
   private readonly BaseUri = 'https://localhost:44335/api';
   counter: number = 1;
 
