@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   userDetails: UserDetails = new UserDetails();
   @ViewChild('cartItemsCount', { static: true }) cartItemsCountIcon: ElementRef;
-  count: number = 0;
+  bookCount: number = 0;
   flag: boolean = false;
 
   constructor(private router: Router, private service: UserService, private location: Location) {
@@ -34,11 +34,11 @@ export class HeaderComponent implements OnInit {
     const localStoredCartItems: Cart[] = JSON.parse(localStorage.getItem("cartItems"));
     if (localStoredCartItems.length > 0) {
       this.cartItemsCountIcon.nativeElement.classList.remove('mat-badge-hidden');
-      this.count = localStoredCartItems.length;
+      this.bookCount = localStoredCartItems.length;
     }
     else {
       this.cartItemsCountIcon.nativeElement.classList.add('mat-badge-hidden');
-      this.count = 0;
+      this.bookCount = 0;
     }
   }
 

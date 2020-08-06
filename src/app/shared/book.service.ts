@@ -55,35 +55,6 @@ export class BookService {
     return str;
   }
 
-  addToCartService(book: Book) {
-    var status: string = "Duplicate";
-    var localStoredCartItems: Cart[] = JSON.parse(localStorage.getItem("cartItems"));
-    if (localStoredCartItems) {
-      var size: number = localStoredCartItems.length;
-      loop: for (var i = 0; i <= size; i++) {
-        var item: Cart = localStoredCartItems[i];
-        if (i == size) {
-          localStoredCartItems.push(new Cart(this.counter++, book.bookId, book.title,
-            book.imageUrl, book.rating, 1, book.price));
-          localStorage.setItem("cartItems", JSON.stringify(localStoredCartItems));
-          status = "Success";
-        }
-        else if (item.bookId == book.bookId) {
-          break loop;
-        }
-        else {
-          continue loop;
-        }
-      }
-    }
-    if (status == "Success") {
-      this.toastr.success(book.title + " Added", status);
-    }
-    else {
-      this.toastr.info("Already exists in cart", "Duplicate");
-    }
-  }
-
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

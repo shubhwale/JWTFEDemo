@@ -7,19 +7,19 @@ import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    constructor(private router: Router, private toastr: ToastrService) {
-
+    constructor(private router : Router, private toastr: ToastrService) {
+        
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (localStorage.getItem('accessToken') != null && localStorage.getItem("refreshToken") != null) {
+        if(localStorage.getItem('accessToken')!=null && localStorage.getItem("refreshToken")!=null) {
             const clonedReq = req.clone({
-                headers: req.headers.set('Authorization', 'Bearer ' + localStorage.getItem('accessToken'))
+                headers : req.headers.set('Authorization','Bearer '+localStorage.getItem('accessToken'))
             });
             return next.handle(clonedReq).pipe(
                 tap(
-                    succ => { },
+                    succ => {},
                     err => {
-                        if (err.status == 401) {
+                        if(err.status == 401) {
                             localStorage.removeItem('accessToken');
                             localStorage.removeItem('refreshToken');
                             this.router.navigateByUrl('/user/login');
