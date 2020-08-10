@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable } from 'rxjs';
 
-fdescribe('UserService', () => {
+describe('UserService', () => {
     let service: UserService;
     let testLoginModel = {
         email: '',
