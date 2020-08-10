@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { UserComponent } from 'src/app/user/user.component'
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 @Injectable({
@@ -8,27 +7,27 @@ import { catchError } from 'rxjs/operators';
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private user : UserComponent) { }
+  constructor(private http: HttpClient) { }
   private readonly BaseUri = 'https://localhost:44335/api';
 
   register(body) {
-    return this.http.post(this.BaseUri+'/users/register',body).pipe(catchError(this.handleError));
+    return this.http.post(this.BaseUri + '/users/register', body).pipe(catchError(this.handleError));
   }
 
   login(formData) {
-     return this.http.post(this.BaseUri+'/users/login',formData);
+    return this.http.post(this.BaseUri + '/users/login', formData);
   }
 
-  getUserDetails(userId : number) : Promise<Object> {
-    return this.http.get(this.BaseUri+'/users/getuserdetails/'+userId).pipe(catchError(this.handleError)).toPromise();;
+  getUserDetails(userId: number): Promise<Object> {
+    return this.http.get(this.BaseUri + '/users/getuserdetails/' + userId).pipe(catchError(this.handleError)).toPromise();;
   }
 
   getCities() {
-    return this.http.get(this.BaseUri+'/users/listcities').pipe(catchError(this.handleError));
+    return this.http.get(this.BaseUri + '/users/listcities').pipe(catchError(this.handleError));
   }
 
   getStates() {
-    return this.http.get(this.BaseUri+'/users/liststates').pipe(catchError(this.handleError));
+    return this.http.get(this.BaseUri + '/users/liststates').pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

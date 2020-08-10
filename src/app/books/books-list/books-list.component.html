@@ -1,5 +1,5 @@
 <div class="container">
-    <table class="table table-bordered" *ngIf = "this.booksList && this.booksList.length">
+    <table class="table table-bordered" *ngIf="this.booksList && this.booksList.length">
         <thead>
             <tr>
                 <th>Book Image</th>
@@ -10,16 +10,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let book of booksList">
-                <td><a routerLink = "/book/{{ book.bookId }}"><img src = "{{ book.imageUrl }}" style="width: 70px; height: 90px"/></a></td>
+            <tr *ngFor="let book of booksList">
+                <td><a routerLink="/book/{{ book.bookId }}"><img src="{{ book.imageUrl }}"
+                            style="width: 70px; height: 90px" /></a></td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.price | currency: "INR"}}</td>
                 <td>
-                    <ngb-rating [rate] = "book.rating"></ngb-rating>
+                    <ngb-rating [rate]="book.rating"></ngb-rating>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-success mr-1" (click) = "addToCart(book)">Add to cart</button>
-                    <button type="button" class="btn btn-info mr-1" routerLink = "/edit_book/{{ book.bookId }}">Edit</button>
+                    <button type="button" class="btn btn-success mr-1" (click)="addToCart(book)">Add to cart</button>
+                    <button type="button" class="btn btn-info mr-1"
+                        routerLink="/edit_book/{{ book.bookId }}">Edit</button>
                 </td>
             </tr>
         </tbody>
