@@ -4,7 +4,7 @@ import { Book } from '../books/book';
 import { Cart } from '../cart/cart';
 
 
-xdescribe('CartService', () => {
+describe('CartService', () => {
   let service: CartService;
   let book: Book;
   let cartItem: Cart;
