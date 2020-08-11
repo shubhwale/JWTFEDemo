@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, AfterContentChecked, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
 import { UserDetails } from '../header/UserDetails';
@@ -11,7 +11,7 @@ import { Cart } from '../cart/cart';
   ]
 })
 
-export class HeaderComponent implements OnInit, DoCheck {
+export class HeaderComponent implements OnInit, AfterContentChecked, AfterViewChecked  {
 
   @Input() userDetails: UserDetails = new UserDetails();
   @ViewChild('cartItemsCount', { static: true }) cartItemsCountIcon: ElementRef;
@@ -19,19 +19,25 @@ export class HeaderComponent implements OnInit, DoCheck {
   @ViewChild('logoutButton', { static: true }) logoutButton: ElementRef;
   @ViewChild('loginButton', { static: true }) loginButton: ElementRef;
   bookCount: number = 0;
+  static flag: boolean=false;
 
   constructor(private router: Router, private service: UserService) {
   }
-
-  ngDoCheck(): void {
-    if (localStorage.getItem('userId')) {
+  
+  ngAfterViewChecked(): void {
+    if (localStorage.getItem('userId') && HeaderComponent.flag!=true) {
+      HeaderComponent.flag=true;
       this.show();
       this.toggleLog();
     }
   }
 
   ngOnInit(): void {
-    this.show();
+    if (localStorage.getItem('userId') && HeaderComponent.flag!=true) {
+      HeaderComponent.flag=true;
+      this.show();
+      this.toggleLog();
+    }
   }
 
   ngAfterContentChecked(): void {
@@ -58,7 +64,6 @@ export class HeaderComponent implements OnInit, DoCheck {
         this.userDetails.userFullName = value['name'];
         this.userDetails.userEmail = value['email'];
       });
-      this.toggleLog();
     }
   }
 
@@ -76,5 +81,6 @@ export class HeaderComponent implements OnInit, DoCheck {
     this.fullName.nativeElement.classList.remove('d-none');
     this.logoutButton.nativeElement.classList.remove('d-none');
     this.loginButton.nativeElement.classList.add('d-none');
+    HeaderComponent.flag=false;
   }
 }

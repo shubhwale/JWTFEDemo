@@ -40,7 +40,10 @@ import { MatBadgeModule } from '@angular/material/badge';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot({
-      progressBar: true
+      progressBar: true,
+      maxOpened: 1,
+      autoDismiss: true,
+      newestOnTop: true,
     }),
     BrowserAnimationsModule,
     FormsModule,

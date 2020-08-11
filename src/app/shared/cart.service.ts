@@ -10,8 +10,8 @@ export class CartService {
   counter: number=1;
   constructor() { }
 
-  addToCartService(book: Book): string {
-    var status: string = "Duplicate";
+  addToCartService(book: Book): boolean {
+    var status: boolean = false;
     var localStoredCartItems: Cart[] = JSON.parse(localStorage.getItem("cartItems"));
     if (localStoredCartItems) {
       var size: number = localStoredCartItems.length;
@@ -21,7 +21,7 @@ export class CartService {
           localStoredCartItems.push(new Cart(this.counter++, book.bookId, book.title,
             book.imageUrl, book.rating, 1, book.price));
           localStorage.setItem("cartItems", JSON.stringify(localStoredCartItems));
-          status = "Success";
+          status = true;
         }
         else if (item.bookId == book.bookId) {
           break loop;
