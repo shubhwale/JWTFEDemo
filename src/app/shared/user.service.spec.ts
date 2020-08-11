@@ -22,7 +22,6 @@ describe('UserService', () => {
     beforeAll(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [UserService]
         });
         service = TestBed.inject(UserService);
         validEmail = 'manjiri@email.com';
