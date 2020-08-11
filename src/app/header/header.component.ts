@@ -11,7 +11,7 @@ import { Cart } from '../cart/cart';
   ]
 })
 
-export class HeaderComponent implements OnInit,DoCheck {
+export class HeaderComponent implements OnInit, DoCheck {
 
   @Input() userDetails: UserDetails = new UserDetails();
   @ViewChild('cartItemsCount', { static: true }) cartItemsCountIcon: ElementRef;
@@ -19,15 +19,15 @@ export class HeaderComponent implements OnInit,DoCheck {
   @ViewChild('logoutButton', { static: true }) logoutButton: ElementRef;
   @ViewChild('loginButton', { static: true }) loginButton: ElementRef;
   bookCount: number = 0;
-  
+
   constructor(private router: Router, private service: UserService) {
   }
-  
+
   ngDoCheck(): void {
-    if(localStorage.getItem('userId')) {
+    if (localStorage.getItem('userId')) {
       this.show();
       this.toggleLog();
-    }  
+    }
   }
 
   ngOnInit(): void {
