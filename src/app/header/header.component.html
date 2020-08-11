@@ -32,7 +32,7 @@
       <li #fullName class="nav-item text-light d-none">
         Welcome {{ this.userDetails.userFullName }}
       </li>
-      <li class="nav-item" *ngIf="flag==false">
+      <li #loginButton class="nav-item">
         <a class="btn btn-primary ml-3" routerLink="/user/login">Login</a>
       </li>
       <li #logoutButton class="nav-item d-none">
