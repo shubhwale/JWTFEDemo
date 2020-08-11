@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { UserService } from '../shared/user.service';
 import { UserDetails } from '../header/UserDetails';
 import { Cart } from '../cart/cart';
@@ -12,14 +11,23 @@ import { Cart } from '../cart/cart';
   ]
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, DoCheck {
 
-  userDetails: UserDetails = new UserDetails();
+  @Input() userDetails: UserDetails = new UserDetails();
   @ViewChild('cartItemsCount', { static: true }) cartItemsCountIcon: ElementRef;
+  @ViewChild('fullName', { static: true }) fullName: ElementRef;
+  @ViewChild('logoutButton', { static: true }) logoutButton: ElementRef;
+  @ViewChild('loginButton', { static: true }) loginButton: ElementRef;
   bookCount: number = 0;
-  flag: boolean = false;
 
-  constructor(private router: Router, private service: UserService, private location: Location) {
+  constructor(private router: Router, private service: UserService) {
+  }
+
+  ngDoCheck(): void {
+    if (localStorage.getItem('userId')) {
+      this.show();
+      this.toggleLog();
+    }
   }
 
   ngOnInit(): void {
@@ -50,10 +58,7 @@ export class HeaderComponent implements OnInit {
         this.userDetails.userFullName = value['name'];
         this.userDetails.userEmail = value['email'];
       });
-      this.flag = true;
-      this.router.navigateByUrl("/books",{skipLocationChange: true}).then(() => {
-        this.router.navigate([decodeURI(this.location.path())]);
-      });
+      this.toggleLog();
     }
   }
 
@@ -61,7 +66,15 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userId');
-    this.flag = false;
+    this.fullName.nativeElement.classList.add('d-none');
+    this.logoutButton.nativeElement.classList.add('d-none');
+    this.loginButton.nativeElement.classList.remove('d-none');
     this.router.navigateByUrl('/user/login');
+  }
+
+  toggleLog(): void {
+    this.fullName.nativeElement.classList.remove('d-none');
+    this.logoutButton.nativeElement.classList.remove('d-none');
+    this.loginButton.nativeElement.classList.add('d-none');
   }
 }

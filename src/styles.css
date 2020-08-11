@@ -104,3 +104,7 @@ div.form-group.required>label:first-child:after{
  .form-control::placeholder {
     color: whitesmoke;
   }
+
+  .mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -3px;
+}
