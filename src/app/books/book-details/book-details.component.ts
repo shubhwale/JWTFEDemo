@@ -37,9 +37,9 @@ export class BookDetailsComponent implements OnInit {
   }
 
   addToCart(book: Book) {
-    const status: string = this.cartService.addToCartService(book);
-    if(status=="Success") {
-      this.toastr.success(book.title + " Added", status);
+    const status: boolean = this.cartService.addToCartService(book);
+    if(status) {
+      this.toastr.success("Book Added", "Success");
     }
     else {
       this.toastr.error("Already added","Duplicate");
