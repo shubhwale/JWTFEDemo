@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
 
   show(): void {
     const userId: number = +localStorage.getItem("userId");
-    if (userId!=0) {
+    if (userId != 0) {
       this.service.getUserDetails(userId).then((value: Object) => {
         this.userDetails.userID = value['userId'];
         this.userDetails.userFullName = value['name'];
