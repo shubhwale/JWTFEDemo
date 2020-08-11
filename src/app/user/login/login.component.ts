@@ -3,12 +3,10 @@ import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/shared/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { HeaderComponent } from 'src/app/header/header.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  providers: [HeaderComponent],
   styles: [
   ]
 })

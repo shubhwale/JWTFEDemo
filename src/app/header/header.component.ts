@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { UserService } from '../shared/user.service';
 import { UserDetails } from '../header/UserDetails';
 import { Cart } from '../cart/cart';
@@ -16,10 +15,12 @@ export class HeaderComponent implements OnInit {
 
   userDetails: UserDetails = new UserDetails();
   @ViewChild('cartItemsCount', { static: true }) cartItemsCountIcon: ElementRef;
+  @ViewChild('fullName', { static: true }) fullName: ElementRef;
+  @ViewChild('logoutButton', { static: true }) logoutButton: ElementRef;
   bookCount: number = 0;
   flag: boolean = false;
 
-  constructor(private router: Router, private service: UserService, private location: Location) {
+  constructor(private router: Router, private service: UserService) {
   }
 
   ngOnInit(): void {
@@ -44,16 +45,14 @@ export class HeaderComponent implements OnInit {
 
   show(): void {
     const userId: number = +localStorage.getItem("userId");
-    if (userId != 0) {
+    if (userId!=0) {
       this.service.getUserDetails(userId).then((value: Object) => {
         this.userDetails.userID = value['userId'];
         this.userDetails.userFullName = value['name'];
         this.userDetails.userEmail = value['email'];
       });
       this.flag = true;
-      this.router.navigateByUrl("/books",{skipLocationChange: true}).then(() => {
-        this.router.navigate([decodeURI(this.location.path())]);
-      });
+      this.toggleLog();
     }
   }
 
@@ -61,7 +60,14 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userId');
+    this.fullName.nativeElement.classList.add('d-none');
+    this.logoutButton.nativeElement.classList.add('d-none');
     this.flag = false;
     this.router.navigateByUrl('/user/login');
+  }
+
+  toggleLog(): void {
+    this.fullName.nativeElement.classList.remove('d-none');
+    this.logoutButton.nativeElement.classList.remove('d-none');
   }
 }
