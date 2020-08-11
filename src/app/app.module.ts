@@ -44,6 +44,7 @@ import { MatBadgeModule } from '@angular/material/badge';
       maxOpened: 1,
       autoDismiss: true,
       newestOnTop: true,
+      enableHtml: true
     }),
     BrowserAnimationsModule,
     FormsModule,
