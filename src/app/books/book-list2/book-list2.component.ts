@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookService } from 'src/app/shared/book.service';
 import { Book } from '../book';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/shared/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-book-list2',
@@ -16,6 +17,7 @@ export class BookList2Component implements OnInit {
 
   booksList: MatTableDataSource<Book>;
   displayedColumns: string[]=['bookImage','bookTitle','bookPrice','bookRating','options'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private bookService: BookService, private ratingConfig: NgbRatingConfig,
     private cartService: CartService, private toastr: ToastrService) { 
@@ -27,6 +29,7 @@ export class BookList2Component implements OnInit {
   ngOnInit(): void {
     this.bookService.getBooks().subscribe((list: Book[])=> {
       this.booksList.data = list;
+      this.booksList.paginator = this.paginator;
     });
   }
 
