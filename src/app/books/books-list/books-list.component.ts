@@ -14,19 +14,23 @@ import { CartService } from 'src/app/shared/cart.service';
 })
 export class BooksListComponent implements OnInit {
 
+  booksList: Book[];
+  categoryList: {};
+  totalBooksCount: number;
+  page: number=1;
+
   constructor(public bookService: BookService, private config: NgbRatingConfig, private toastr: ToastrService
     ,private header: HeaderComponent, private cartService: CartService) {
     // customize default values of ratings used by this component tree
     config.readonly = true;
     config.max = 5;
+    this.booksList=new Array<Book>();
   }
-
-  booksList: Book[];
-  categoryList: {}
 
   ngOnInit() {
     this.bookService.getBooks().subscribe((data: Book[]) => {
       this.booksList = data;
+      this.totalBooksCount = data.length;
     });
     this.bookService.getCategories().subscribe(categories => {
       this.categoryList = categories;
