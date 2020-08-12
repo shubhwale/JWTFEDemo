@@ -9,6 +9,7 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
 import { AddBookComponent } from './books/add-book/add-book.component';
 import { EditBookComponent } from './books/edit-book/edit-book.component';
 import { CartComponent } from './cart/cart.component';
+import { BookList2Component } from './books/book-list2/book-list2.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/books', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
     ]
   },
   { path: 'books', component: BooksListComponent },
+  { path: 'books2', component: BookList2Component },
   { path: 'book/:id', component: BookDetailsComponent },
   { path: 'add_book', component: AddBookComponent },
   { path: 'edit_book/:id', component: EditBookComponent },

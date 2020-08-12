@@ -21,6 +21,7 @@ import { CartComponent } from './cart/cart.component';
 import { BookService } from './shared/book.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { BookList2Component } from './books/book-list2/book-list2.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HeaderComponent,
     AddBookComponent,
     EditBookComponent,
-    CartComponent
+    CartComponent,
+    BookList2Component
   ],
   imports: [
     BrowserModule,
