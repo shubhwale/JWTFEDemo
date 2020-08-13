@@ -1,5 +1,5 @@
-<div class="container mt-1">
-    <label>Categories</label>
+<div class="container mt-1 d-flex justify-content-center">
+    <label class="font-weight-bold">Categories</label>
     <select class="ml-1" (change)="categoryListing($event.target.value)">
         <option value="0" selected>All</option>
         <option *ngFor="let category of categoryList" [value]="category.categoryId">{{ category.categoryName }}</option>
@@ -10,7 +10,7 @@
         <ng-container matColumnDef='bookImage'>
             <mat-header-cell *matHeaderCellDef>Book Image</mat-header-cell>
             <mat-cell *matCellDef="let book">
-                <a routerLink="/book/{{ book.bookId }}"><img src="{{ book.imageUrl }}"
+                <a class="p-2" routerLink="/book/{{ book.bookId }}"><img src="{{ book.imageUrl }}"
                         style="width: 60px; height: 80px" /></a>
             </mat-cell>
         </ng-container>
@@ -42,5 +42,5 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+    <mat-paginator [ngClass]="['bg-secondary']" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
