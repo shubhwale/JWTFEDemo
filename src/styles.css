@@ -1,9 +1,5 @@
 @import '~@angular/material/prebuilt-themes/purple-green.css';
 
-.blue-icon {
-    color: turquoise;
-}
-
 body{
     background-color: white;;
 }
