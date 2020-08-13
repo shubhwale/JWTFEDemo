@@ -10,11 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let book of booksList | paginate : { 
-                id: 'listing_pagination',
-                itemsPerPage: 5,
-                currentPage: page,
-                totalItems: totalBooksCount }">
+            <tr *ngFor="let book of booksList">
                 <td><a routerLink="/book/{{ book.bookId }}"><img src="{{ book.imageUrl }}"
                             style="width: 70px; height: 90px" /></a></td>
                 <td>{{ book.title }}</td>
@@ -30,6 +26,4 @@
             </tr>
         </tbody>
     </table>
-    <pagination-controls class="d-flex justify-content-center" id="listing_pagination" maxSize=5 directionLinks="true" (pageChange)="page = $event">
-    </pagination-controls>
 </div>

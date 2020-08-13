@@ -20,7 +20,6 @@ import { EditBookComponent } from './books/edit-book/edit-book.component';
 import { CartComponent } from './cart/cart.component';
 import { BookService } from './shared/book.service';
 import { MatBadgeModule } from '@angular/material/badge';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -50,8 +49,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BrowserAnimationsModule,
     FormsModule,
     NgbModule,
-    MatBadgeModule,
-    NgxPaginationModule
+    MatBadgeModule
   ],
   providers: [UserService, BookService, HeaderComponent
     , {
