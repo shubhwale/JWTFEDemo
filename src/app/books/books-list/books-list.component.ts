@@ -19,11 +19,11 @@ export class BooksListComponent implements OnInit {
 
   booksList: MatTableDataSource<Book>;
   categoryList: Category[];
-  displayedColumns: string[] = ['bookImage','bookTitle','bookPrice','bookRating','options'];
+  displayedColumns: string[] = ['bookImage', 'bookTitle', 'bookPrice', 'bookRating', 'options'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public bookService: BookService, private config: NgbRatingConfig, private toastr: ToastrService
-    ,private header: HeaderComponent, private cartService: CartService) {
+    , private header: HeaderComponent, private cartService: CartService) {
     // customize default values of ratings used by this component tree
     config.readonly = true;
     config.max = 5;
@@ -42,16 +42,16 @@ export class BooksListComponent implements OnInit {
 
   addToCart(book: Book) {
     const status: boolean = this.cartService.addToCartService(book);
-    if(status) {
+    if (status) {
       this.toastr.success(book.title + " Added", "Success");
     }
     else {
-      this.toastr.error("Already added","Duplicate");
+      this.toastr.error("Already added", "Duplicate");
     }
   }
 
   categoryListing(categoryId: number): void {
-    this.bookService.getBooks(categoryId).subscribe((list: Book[])=> {
+    this.bookService.getBooks(categoryId).subscribe((list: Book[]) => {
       this.booksList.data = list;
       this.booksList.paginator = this.paginator;
     });

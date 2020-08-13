@@ -11,7 +11,7 @@
             <mat-header-cell *matHeaderCellDef>Book Image</mat-header-cell>
             <mat-cell *matCellDef="let book">
                 <a routerLink="/book/{{ book.bookId }}"><img src="{{ book.imageUrl }}"
-                    style="width: 60px; height: 80px" /></a>
+                        style="width: 60px; height: 80px" /></a>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef='bookTitle'>
@@ -31,8 +31,12 @@
         <ng-container matColumnDef="options">
             <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
             <mat-cell *matCellDef="let row; let book">
-                <button class="btn btn-success" mat-icon-button (click)="addToCart(book)"><mat-icon>add_shopping_cart</mat-icon></button>
-                <button class="btn btn-primary ml-1"  mat-icon-button routerLink="/edit_book/{{ book.bookId }}"><mat-icon>edit</mat-icon></button>
+                <button class="btn btn-success" mat-icon-button (click)="addToCart(book)">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                </button>
+                <button class="btn btn-primary ml-1" mat-icon-button routerLink="/edit_book/{{ book.bookId }}">
+                    <mat-icon>edit</mat-icon>
+                </button>
             </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

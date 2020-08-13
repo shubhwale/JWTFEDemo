@@ -15,7 +15,7 @@ export class BookService {
   counter: number = 1;
 
   getBooks(categoryId: number = 0): Observable<Object> {
-    return this.http.get(this.BaseUri + '/books?categoryid='+categoryId).pipe(catchError(this.handleError));
+    return this.http.get(this.BaseUri + '/books?categoryid=' + categoryId).pipe(catchError(this.handleError));
   }
 
   getCategories(): Observable<Object> {
@@ -54,7 +54,7 @@ export class BookService {
     str += month + "-" + day;
     return str;
   }
-  
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
