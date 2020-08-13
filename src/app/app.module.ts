@@ -24,7 +24,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BookList2Component } from './books/book-list2/book-list2.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -58,8 +57,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatBadgeModule,
     NgxPaginationModule,
     MatTableModule,
-    MatIconModule,
-    MatPaginatorModule
+    MatIconModule
   ],
   providers: [UserService, BookService, HeaderComponent
     , {
