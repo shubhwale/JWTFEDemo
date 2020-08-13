@@ -20,7 +20,6 @@ import { EditBookComponent } from './books/edit-book/edit-book.component';
 import { CartComponent } from './cart/cart.component';
 import { BookService } from './shared/book.service';
 import { MatBadgeModule } from '@angular/material/badge';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -54,7 +53,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
     NgbModule,
     MatBadgeModule,
-    NgxPaginationModule,
     MatTableModule,
     MatIconModule,
     MatPaginatorModule
