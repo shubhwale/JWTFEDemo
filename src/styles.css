@@ -1,5 +1,13 @@
 @import '~@angular/material/prebuilt-themes/purple-green.css';
 
+.mat-cell {
+    color:black;
+}
+
+.mat-header-cell {
+    color : black;
+}
+
 body{
     background-color: white;;
 }

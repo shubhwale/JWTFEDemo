@@ -21,6 +21,9 @@ import { CartComponent } from './cart/cart.component';
 import { BookService } from './shared/book.service';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     NgbModule,
     MatBadgeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatTableModule,
+    MatIconModule,
+    MatPaginatorModule
   ],
   providers: [UserService, BookService, HeaderComponent
     , {

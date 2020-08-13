@@ -1,35 +1,35 @@
 <div class="container">
-    <table class="table table-bordered" *ngIf="this.booksList && this.booksList.length">
-        <thead>
-            <tr>
-                <th>Book Image</th>
-                <th>Book Title</th>
-                <th>Book Price</th>
-                <th>Book Rating</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let book of booksList | paginate : { 
-                id: 'listing_pagination',
-                itemsPerPage: 5,
-                currentPage: page,
-                totalItems: totalBooksCount }">
-                <td><a routerLink="/book/{{ book.bookId }}"><img src="{{ book.imageUrl }}"
-                            style="width: 70px; height: 90px" /></a></td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.price | currency: "INR"}}</td>
-                <td>
-                    <ngb-rating [rate]="book.rating"></ngb-rating>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-success mr-1" (click)="addToCart(book)">Add to cart</button>
-                    <button type="button" class="btn btn-info mr-1"
-                        routerLink="/edit_book/{{ book.bookId }}">Edit</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls class="d-flex justify-content-center" id="listing_pagination" maxSize=5 directionLinks="true" (pageChange)="page = $event">
-    </pagination-controls>
+    <mat-table [ngClass]="['bg-light']" [dataSource]="booksList">
+        <ng-container matColumnDef='bookImage'>
+            <mat-header-cell *matHeaderCellDef>Book Image</mat-header-cell>
+            <mat-cell *matCellDef="let book">
+                <a routerLink="/book/{{ book.bookId }}"><img src="{{ book.imageUrl }}"
+                    style="width: 60px; height: 80px" /></a>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef='bookTitle'>
+            <mat-header-cell *matHeaderCellDef>Book Title</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.title }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef='bookPrice'>
+            <mat-header-cell *matHeaderCellDef>Book Price</mat-header-cell>
+            <mat-cell *matCellDef="let book">{{ book.price | currency:'INR':'symbol':'.0' }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef='bookRating'>
+            <mat-header-cell *matHeaderCellDef>Book Rating</mat-header-cell>
+            <mat-cell *matCellDef="let book">
+                <ngb-rating [rate]="book.rating"></ngb-rating>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="options">
+            <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
+            <mat-cell *matCellDef="let row; let book">
+                <button class="btn btn-success" mat-icon-button (click)="addToCart(book)"><mat-icon>add_shopping_cart</mat-icon></button>
+                <button class="btn btn-primary ml-1"  mat-icon-button routerLink="/edit_book/{{ book.bookId }}"><mat-icon>edit</mat-icon></button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
