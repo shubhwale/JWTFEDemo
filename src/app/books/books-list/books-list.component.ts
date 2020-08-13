@@ -7,6 +7,7 @@ import { HeaderComponent } from 'src/app/header/header.component';
 import { CartService } from 'src/app/shared/cart.service';
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator';
+import { Category } from './category';
 
 @Component({
   selector: 'app-books-list',
@@ -17,7 +18,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class BooksListComponent implements OnInit {
 
   booksList: MatTableDataSource<Book>;
-  categoryList: {};
+  categoryList: Category[];
   displayedColumns: string[] = ['bookImage','bookTitle','bookPrice','bookRating','options'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -34,7 +35,7 @@ export class BooksListComponent implements OnInit {
       this.booksList.data = list;
       this.booksList.paginator = this.paginator;
     });
-    this.bookService.getCategories().subscribe(categories => {
+    this.bookService.getCategories().subscribe((categories: Category[]) => {
       this.categoryList = categories;
     });
   }
@@ -47,5 +48,12 @@ export class BooksListComponent implements OnInit {
     else {
       this.toastr.error("Already added","Duplicate");
     }
+  }
+
+  categoryListing(categoryId: number): void {
+    this.bookService.getBooks(categoryId).subscribe((list: Book[])=> {
+      this.booksList.data = list;
+      this.booksList.paginator = this.paginator;
+    });
   }
 }
