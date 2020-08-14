@@ -1,7 +1,7 @@
 @import '~@angular/material/prebuilt-themes/purple-green.css';
 
 .mat-cell {
-    color:black;
+    color : black;
 }
 
 .mat-header-cell {
@@ -10,6 +10,10 @@
 
 .mat-footer-row, .mat-header-row, .mat-row {
     border-bottom-width: 10px;
+}
+
+.mat-paginator {
+    color : black;
 }
 
 body{
