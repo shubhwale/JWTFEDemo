@@ -8,6 +8,10 @@
     color : black;
 }
 
+.mat-footer-row, .mat-header-row, .mat-row {
+    border-bottom-width: 10px;
+}
+
 body{
     background-color: white;;
 }

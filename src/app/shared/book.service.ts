@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { UserComponent } from 'src/app/user/user.component'
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 
@@ -14,11 +14,11 @@ export class BookService {
   private readonly BaseUri = 'https://localhost:44335/api';
   counter: number = 1;
 
-  getBooks() {
-    return this.http.get(this.BaseUri + '/books').pipe(catchError(this.handleError));
+  getBooks(categoryId: number = 0): Observable<Object> {
+    return this.http.get(this.BaseUri + '/books?categoryid=' + categoryId).pipe(catchError(this.handleError));
   }
 
-  getCategories() {
+  getCategories(): Observable<Object> {
     return this.http.get(this.BaseUri + '/books/getcategories').pipe(catchError(this.handleError));
   }
 
@@ -54,7 +54,7 @@ export class BookService {
     str += month + "-" + day;
     return str;
   }
-  
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
