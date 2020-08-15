@@ -1,4 +1,4 @@
-<div class="container mt-1 d-flex justify-content-center">
+<div class="container p-3 d-flex justify-content-center">
     <label class="font-weight-bold">Categories</label>
     <select class="ml-1" (change)="categoryListing($event.target.value)">
         <option value="0" selected>All</option>
@@ -42,5 +42,5 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
-    <mat-paginator [ngClass]="['bg-secondary']" [pageSize]="5" showFirstLastButtons></mat-paginator>
+    <mat-paginator [ngClass]="['bg-white']" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
